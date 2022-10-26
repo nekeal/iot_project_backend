@@ -1,0 +1,8 @@
+Django
+djangorestframework
+django-jazzmin
+django-extensions
+django-admin-display
+psycopg2-binary
+ipython
+environs
