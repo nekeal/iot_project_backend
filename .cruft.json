@@ -1,0 +1,30 @@
+{
+  "template": "https://github.com/nekeal/cookiecutter-django-api",
+  "commit": "420ae26f0084c9410860d782230caa64ca8de1e5",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "project_name": "iot_project_backend",
+      "full_project_name": "IoT project ",
+      "github_username": "nekeal",
+      "github_repository_name": "iot_project_backend",
+      "email": "mail@example.com",
+      "description": "Grupa A - projekt na przedmiot IoT semestr zimowy 2022/23",
+      "use_jazzmin": "y",
+      "use_drf": "y",
+      "use_drf_flex_fields": "n",
+      "use_drf_yasg": "n",
+      "use_jwt": "n",
+      "use_sentry": "n",
+      "use_django_filters": "n",
+      "use_django_debug_toolbar": "n",
+      "use_django_extensions": "y",
+      "use_tox": "n",
+      "use_celery": "n",
+      "use_dbbackup": "n",
+      "use_react_frontend": "n",
+      "_template": "https://github.com/nekeal/cookiecutter-django-api"
+    }
+  },
+  "directory": null
+}

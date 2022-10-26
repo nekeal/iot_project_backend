@@ -1,0 +1,12 @@
+__pycache__
+.idea
+.mypy_cache
+.git
+.tox
+deployment*
+htmlcov
+.pytest_cache
+media
+**/node_modules
+**/frontend/build
+**/frontend/config

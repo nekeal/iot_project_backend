@@ -1,0 +1,31 @@
+[tool.black]
+max-line-length = 88
+
+[tool.isort]
+profile = "black"
+
+[tool.coverage.report]
+branch = true
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:"
+]
+omit = [
+    "**/fixtures.py",
+    "manage.py",
+    "**/wsgi.py",
+    "**/settings/*.py",
+    "**/migrations/*.py",
+]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "iot_project_backend.settings.local"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+norecursedirs = ["deployment*",
+                 ".git/*",
+                 ".mypy_cache/*",
+                 ".pytest_cache/*",
+                 "migrations/*",
+                 "iot_project_backend/frontend/*"
+]
+addopts = "--nomigrations"
