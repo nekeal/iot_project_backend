@@ -6,7 +6,7 @@ import sys
 
 def main():
     os.environ.setdefault(
-        "DJANGO_SETTINGS_MODULE", "iot_project_backend.settings.local"
+        "DJANGO_SETTINGS_MODULE", "iot.settings.local"
     )
     try:
         from django.core.management import execute_from_command_line

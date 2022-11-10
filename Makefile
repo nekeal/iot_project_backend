@@ -46,26 +46,26 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .pytest_cache
 
 test: ## run tests quickly with the default Python
-	pytest iot_project_backend
+	pytest iot
 
 test-all: ## run tests on every Python version with tox
 	tox
 
 coverage: ## check code coverage quickly with the default Python
-	pytest --cov=iot_project_backend iot_project_backend
+	pytest --cov=iot iot
 	coverage report -m
 	coverage html
 	$(BROWSER) htmlcov/index.html
 
 quality-check: ## check quality of code
-	black --check iot_project_backend
-	isort --check iot_project_backend
-	flake8 iot_project_backend
-	mypy iot_project_backend
+	black --check iot
+	isort --check iot
+	flake8 iot
+	mypy iot
 
 autoformatters: ## runs auto formatters
-	black iot_project_backend
-	isort iot_project_backend
+	black iot
+	isort iot
 
 pip-compile:
 	ls requirements/*.in | xargs -n 1 pip-compile
