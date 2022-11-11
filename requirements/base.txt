@@ -25,12 +25,16 @@ django-extensions==3.2.1
     # via -r base.in
 django-jazzmin==2.5.0
     # via -r base.in
+django-json-widget==1.1.1
+    # via -r base.in
 djangorestframework==3.14.0
     # via -r base.in
 environs==9.5.0
     # via -r base.in
 executing==1.1.1
     # via stack-data
+future==0.18.2
+    # via django-json-widget
 ipython==8.5.0
     # via -r base.in
 jedi==0.18.1
