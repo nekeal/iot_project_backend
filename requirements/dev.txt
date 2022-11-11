@@ -94,6 +94,8 @@ packaging==21.3
     #   marshmallow
     #   pytest
     #   pytest-sugar
+paho-mqtt==1.6.1
+    # via -r base.txt
 parso==0.8.3
     # via
     #   -r base.txt
