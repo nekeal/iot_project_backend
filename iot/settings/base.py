@@ -2,7 +2,10 @@ from pathlib import Path
 
 from environs import Env
 
+from .jazzmin import JAZZMIN_SETTINGS  # noqa
+
 env = Env()
+env.read_env(".env", recurse=False)
 
 PROJECT_NAME = "iot"
 
@@ -29,9 +32,10 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     "rest_framework",
     "django_extensions",
+    "django_json_widget",
 ]
 
-LOCAL_APPS = ["iot.accounts.apps.AccountsConfig"]
+LOCAL_APPS = ["iot.accounts.apps.AccountsConfig", "iot.boxes"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 

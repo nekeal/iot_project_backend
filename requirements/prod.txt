@@ -35,6 +35,8 @@ django-extensions==3.2.1
     # via -r base.txt
 django-jazzmin==2.5.0
     # via -r base.txt
+django-json-widget==1.1.1
+    # via -r base.txt
 djangorestframework==3.14.0
     # via -r base.txt
 environs==9.5.0
@@ -43,6 +45,10 @@ executing==1.1.1
     # via
     #   -r base.txt
     #   stack-data
+future==0.18.2
+    # via
+    #   -r base.txt
+    #   django-json-widget
 gunicorn==20.1.0
     # via -r prod.in
 ipython==8.5.0
