@@ -1,0 +1,48 @@
+{% extends "admin/change_form.html" %}
+
+{% block breadcrumbs %}
+
+{% endblock %}
+
+{% block content %}
+    <div style="margin-left: 1%; width: 100%">
+        <form action="" method="post" class="form form-group">
+            <div class="form_group">
+                <div class="row">
+                    <h2>Listen Message</h2>
+                </div>
+                {% for field in form %}
+                    <div>
+                        <div class="row">
+                            <div class="help-block text-red">
+                                {{ field.errors.0 }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="text-left col-sm-2" style="padding-right: 10px" for="{{ field.name }}">{{ field.label_tag }}</label>
+                            <div class="col-sm-10">
+                                {{ field }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="row">
+                <button class="btn btn-success">
+                    Listen
+                </button>
+            </div>
+            <div class="result_group">
+                <div class="row">
+                    <h2>Resopnse</h2>
+                </div>
+                {% for message in messages %}
+                    <div>
+                        <p>{{ message }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            {% csrf_token %}
+        </form>
+    </div>
+{% endblock %}
