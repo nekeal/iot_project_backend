@@ -50,17 +50,13 @@ class GetMessageFormView(FormView):
         }
 
     def form_valid(self, form):
-        messages.success(self.request, "Successfully subscribed to topic")
+        messages.success(self.request, "Message fetched")
         return self.get(self.request)
 
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         form = self.get_form()
         if form.is_valid():
-            context = {
-                "messages": BoxMqttClient().subscribe(
-                    form.cleaned_data["topic"], msg_count=0
-                    )
-            }
+            messages.success(self.request, BoxMqttClient().subscribe(form.cleaned_data["topic"], msg_count=1))
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
