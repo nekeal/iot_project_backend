@@ -8,3 +8,4 @@ ipython
 environs
 paho-mqtt
 django-json-widget
+pyyaml

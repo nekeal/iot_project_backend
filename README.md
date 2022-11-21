@@ -35,13 +35,28 @@ make bootstrap
 
 ## Docker way
 
-Start the dev server for local development:
-```bash
-docker-compose up
-```
+We use [Docker Buildkit](https://docs.docker.com/develop/develop-images/build_enhancements/)
+so make sure you have it enabled.
 
-Run a command inside the docker container:
+Start the dev server for local development:
+
+```bash
+make bootstrap-docker
+```
+You can use the above command later on to ensure that you have built newest
+image and all migrations are applied to the database.
+
+Usually you want to use `docker-compose up` command to start containers.
+Web interface is exposed unset `8000` port. 
+
+Then you can run any command inside the docker container:
 
 ```bash
 docker-compose run --rm web [command]
 ```
+
+## Default login credentials
+
+login: admin
+
+password: administrator
