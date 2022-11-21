@@ -1,5 +1,5 @@
 [tool.black]
-max-line-length = 88
+max-line-length = 120
 
 [tool.isort]
 profile = "black"
@@ -19,7 +19,7 @@ omit = [
 ]
 
 [tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "iot_project_backend.settings.local"
+DJANGO_SETTINGS_MODULE = "iot.settings.local"
 python_files = ["tests.py", "test_*.py", "*_tests.py"]
 norecursedirs = ["deployment*",
                  ".git/*",

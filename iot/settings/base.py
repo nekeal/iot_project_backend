@@ -2,9 +2,12 @@ from pathlib import Path
 
 from environs import Env
 
-env = Env()
+from .jazzmin import JAZZMIN_SETTINGS  # noqa
 
-PROJECT_NAME = "iot_project_backend"
+env = Env()
+env.read_env(".env", recurse=False)
+
+PROJECT_NAME = "iot"
 
 BASE_DIR = Path(__file__).parents[2]
 APPS_DIR = BASE_DIR.joinpath(PROJECT_NAME)
@@ -29,9 +32,10 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     "rest_framework",
     "django_extensions",
+    "django_json_widget",
 ]
 
-LOCAL_APPS = ["iot_project_backend.accounts.apps.AccountsConfig"]
+LOCAL_APPS = ["iot.accounts.apps.AccountsConfig", "iot.boxes"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -49,8 +53,8 @@ MIDDLEWARE = [
 ]
 
 # ------------- URLS -------------
-ROOT_URLCONF = "iot_project_backend.urls"
-WSGI_APPLICATION = "iot_project_backend.wsgi.application"
+ROOT_URLCONF = "iot.urls"
+WSGI_APPLICATION = "iot.wsgi.application"
 
 # ------------- TEMPLATES -------------
 TEMPLATES = [

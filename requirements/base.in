@@ -6,3 +6,5 @@ django-admin-display
 psycopg2-binary
 ipython
 environs
+paho-mqtt
+django-json-widget
