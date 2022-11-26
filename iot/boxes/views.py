@@ -6,6 +6,8 @@ from django.contrib.admin import site as admin_site
 from django.http import HttpRequest, HttpResponse
 from django.views.generic import FormView
 
+from iot.boxes.models import TopicMessages
+
 from iot.boxes.client import BoxMqttClient
 from iot.boxes.forms import PublishMessageForm, GetMessageForm
 
@@ -56,7 +58,10 @@ class GetMessageFormView(FormView):
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         form = self.get_form()
         if form.is_valid():
-            messages.success(self.request, BoxMqttClient().subscribe(form.cleaned_data["topic"], msg_count=1))
+            query_result = TopicMessages.objects.filter(topic=form.cleaned_data["topic"]).order_by("-fetch_date")
+            parsed_query = [ "date: {}, message: {}".format(result.fetch_date, result.message) for result in query_result ]
+            for msg in parsed_query:
+                messages.success(self.request, msg)
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
