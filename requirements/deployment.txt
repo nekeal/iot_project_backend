@@ -25,6 +25,8 @@ pycparser==2.21
 pyparsing==3.0.9
     # via packaging
 pyyaml==6.0
-    # via ansible-core
+    # via
+    #   -c base.in
+    #   ansible-core
 resolvelib==0.8.1
     # via ansible-core

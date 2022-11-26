@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  web:
+    restart: always
+    build: .
+    ports:
+      - "8000:8000"
+    links:
+      - postgres:postgres
+    volumes:
+      - .:/app
+    environment:
+      POSTGRES_HOST: postgres
+    command: "python manage.py runserver 0:8000"
+    depends_on:
+      - postgres
+
+  postgres:
+    restart: always
+    image: postgres:13-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: iot_project_backend
+      POSTGRES_DATABASE: iot_project_backend
+      POSTGRES_PASSWORD: iot_project_backend
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+
+volumes:
+  pgdata:

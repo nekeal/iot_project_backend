@@ -69,6 +69,8 @@ python-dotenv==0.21.0
     # via environs
 pytz==2022.5
     # via djangorestframework
+pyyaml==6.0
+    # via -r base.in
 six==1.16.0
     # via asttokens
 sqlparse==0.4.3
