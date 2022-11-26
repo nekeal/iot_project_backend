@@ -8,7 +8,7 @@ JAZZMIN_SETTINGS = {
     "search_model": "auth.user",
     "show_ui_builder": True,
     "navigation_expanded": True,
-    "icons": {},
+    # "icons": {},
     "topmenu_links": [
         # Url that gets reversed (Permissions can be added)
         {"name": "Publish message to the queue", "url": "boxes:publish_message"},
