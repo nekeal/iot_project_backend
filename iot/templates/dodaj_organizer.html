@@ -1,0 +1,173 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <title>Inteligentny Organizer na Leki</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href={% static "img/icon.ico" %} rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href={% static "lib/animate/animate.min.css" %} rel="stylesheet">
+    <link href={% static "lib/owlcarousel/assets/owl.carousel.min.css" %} rel="stylesheet">
+    <link href={% static "lib/tempusdominus/css/tempusdominus" %}-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href={% static "css/bootstrap.min.css" %} rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href={% static "css/style.css" %} rel="stylesheet">
+</head>
+
+<body>
+  <div class="container-xxl bg-white p-0">
+
+
+                    <!-- Navbar & Hero Start -->
+        <div class="container-xxl position-relative p-0">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+					<div class="navbar-nav ms-auto py=2 px=3>
+						<label for="inputState" class="form-label">Wybrany profil uzytkownika</label>
+                        <select id="inputState" class="form-select">
+                          <option selected>Mój profil</option>
+                          <option>Profil udostępniony 1</option>
+						  <option>Profil udostępniony 2</option>
+                        </select>
+					</div>
+					<div class="navbar-nav ms-auto py-0 pe-4">
+                        <a href="{% url "boxes:main_page" %}" class="nav-item nav-link">Strona główna</a>
+                        <a href="{% url "boxes:box_config" %}" class="nav-item nav-link ">Organizer</a>
+                        
+                        <a href="{% url "boxes:time_of_day" %}" class="nav-item nav-link ">Pory zażywania</a>
+						<a href="{% url "boxes:profile" %}" class="nav-item nav-link ">Współdzielenie</a>
+
+                    </div>
+                    <a href="{% url "boxes:welcome_page" %}" class="btn btn-primary py-1 px-1">Wyloguj</a>
+                </div>
+
+            </nav>
+
+            
+        </div>
+        <!-- Navbar & Hero End -->
+
+<br><br><br><br>
+    <!-- Service Start -->
+    <div class="container-xxl py-5">
+      <div class="container text-center">
+          <div class="row gx-5">
+            <div class="col-lg-8 col-md-8">
+              <h4 class="mb-4">Dodaj nowy organizer</h4>
+              <form>
+                <div class="row mb-3">
+                  <label for="idOrganizera" class="col-sm-2 col-form-label">ID (numer) organizera</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="idOrganizera">
+                  </div>
+                  <div class="col-lg-1 col-sm-1">
+                    <button type="button" class="btn btn-outline" data-bs-toggle="tooltip" data-bs-placement="right" title="Unikalny numer znajdziesz na spodzie organizera.">
+                      <i class="bi bi-question-circle"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="nazwaOrganizera" class="col-sm-2 col-form-label">Nazwa organizera</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="nazwaOrganizera">
+                  </div>
+                  <div class="col-lg-1 col-sm-1">
+                    <button type="button" class="btn btn-outline" data-bs-toggle="tooltip" data-bs-placement="right" title="Dowolna nazwa, pod która będzie widoczny Twój organizer. Jeżeli masz więcej niż jeden organizer, nazwy organizerów muszą być różne.">
+                      <i class="bi bi-question-circle"></i>
+                    </button>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary" href="{% url "boxes:box_config" %}">Dodaj</button>
+              </form>
+            </div>
+            <div class="col-lg-4 col-md-4">
+              <div class="text-center">
+                <img class="img-fluid rounded wow zoomIn" data-wow-delay="0.1s" src={% static "img/organizer.jpg" %}>
+            </div>
+            </div>
+          </div>
+        
+        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDodano">
+          Dodano organizer
+        </button> -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalDodano" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="container text-end mb-2">
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="container text-center mb-4">
+                  <h5 class="modal-title" id="exampleModalLabel">Pomyślnie dodano organizer</h5>
+                </div>
+                <div class="container text-center">
+                  <!-- link na tak -->
+                  <button type="button" class="btn btn-primary col-sm-9 mb-2">Przejdź do swoich organizerów</button>
+                  <button type="button" class="btn btn-secondary col-sm-9" data-bs-dismiss="modal">Dodaj kolejny organizer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- Service End -->
+
+
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+  </div>
+
+  <!-- JavaScript Libraries -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src={% static "lib/wow/wow.min.js" %}></script>
+  <script src={% static "lib/easing/easing.min.js" %}></script>
+  <script src={% static "lib/waypoints/waypoints.min.js" %}></script>
+  <script src={% static "lib/counterup/counterup.min.js" %}></script>
+  <script src={% static "lib/owlcarousel/owl.carousel.min.js" %}></script>
+  <script src={% static "lib/tempusdominus/js/moment.min.js" %}></script>
+  <script src={% static "lib/tempusdominus/js/moment" %}-timezone.min.js"></script>
+  <script src={% static "lib/tempusdominus/js/tempusdominus" %}-bootstrap-4.min.js"></script>
+
+  <!-- Template Javascript -->
+  <script src={% static "js/main.js" %}></script>
+
+  <script>
+    $(document).ready(function(){
+      $('[data-bs-toggle="tooltip"]').tooltip();
+    });
+  </script>
+
+</body>
+
+</html>

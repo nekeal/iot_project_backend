@@ -1,0 +1,480 @@
+{%  load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Inteligentny Organizer na Leki</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href={% static "img/icon.ico" %} rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href={% static "lib/animate/animate.min.css" %} rel="stylesheet">
+    <link href={% static "lib/owlcarousel/assets/owl.carousel.min.css" %} rel="stylesheet">
+    <link href={% static "lib/tempusdominus/css/tempusdominus" %}-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href={% static "css/bootstrap.min.css" %} rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href={% static "css/style.css" %} rel="stylesheet">
+</head>
+
+<body>
+
+           <!-- Navbar & Hero Start -->
+        <div class="container-xxl position-relative p-0">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+					<div class="navbar-nav ms-auto py=2 px=3>
+						<label for="inputState" class="form-label">Wybrany profil uzytkownika</label>
+                        <select id="inputState" class="form-select">
+                          <option selected>Mój profil</option>
+                          <option>Profil udostępniony 1</option>
+						  <option>Profil udostępniony 2</option>
+                        </select>
+					</div>
+					<div class="navbar-nav ms-auto py-0 pe-4">
+                        <a href="{% url "boxes:main_page" %}" class="nav-item nav-link">Strona główna</a>
+                        <a href="{% url "boxes:box_config" %}" class="nav-item nav-link active">Organizer</a>
+                        
+                        <a href="{% url "boxes:time_of_day" %}" class="nav-item nav-link ">Pory zażywania</a>
+						<a href="{% url "boxes:profile" %}" class="nav-item nav-link ">Współdzielenie</a>
+
+                    </div>
+                    <a href="{% url "boxes:welcome_page" %}" class="btn btn-primary py-1 px-1">Wyloguj</a>
+                </div>
+
+            </nav>
+
+            
+        </div>
+        <!-- Navbar & Hero End -->
+
+    <br><br><br><br><br><br>
+	<div class="container text-center">
+		<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+			<li class="nav-item" role="presentation">
+				<button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home"
+					type="button" role="tab" aria-controls="pills-home" aria-selected="true">Organizer 1</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
+					type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Organizer 2</button>
+			</li>
+		</ul>
+	</div>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div class="container-xxl py-5">
+                <br>
+                <div class="container">
+                    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                        <h1 class="mb-5">Skonfiguruj organizer 1</h1>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-lg-1">
+                            <br><br><br><br>
+                            <p style="font-size: 9px;">Jeśli chcesz usunąć organizer z profilu, kliknij poniższy przycisk
+                            </p> <br><br>
+                            <a href="" class="btn btn-secondary py-1 px-1" style="font-size: 7px;">Usuń organizer</a>
+    
+                        </div>
+                        <div class="col-lg-2 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="service-item rounded pt-3">
+                                <div class="p-4" style="text-align:center"><br><br>
+                                    <i class="fa fa-3x text-primary mb-4"></i>
+                                    <a class="btn btn-link tablinks" onclick="openCity(event, 'o1a');">Kolumna A</a>
+                                    <br>
+                                    <p>Aktualnie wybrany lek: </p>
+                                    <!--<a href="" class="btn btn-primary py-1 px-1">Wyczyść konfigurację</a> -->
+                                    <p>Brak</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                            <div class="service-item rounded pt-3">
+                                <div class="p-4" style="text-align:center"><br><br>
+                                    <i class="fa fa-3x text-primary mb-4"></i>
+                                    <a class="btn btn-link tablinks" onclick="openCity(event, 'o1b');"">Kolumna B</a>
+                                    <br>
+                                    <p>Aktualnie wybrany lek: </p>
+                                    <p>Lek Y</p>
+    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+                            <div class="service-item rounded pt-3">
+                                <div class="p-4" style="text-align:center"><br><br>
+                                    <i class="fa fa-3x text-primary mb-4"></i>
+                                    <a class="btn btn-link" href="">Kolumna C</a>
+                                    <br>
+                                    <p>Aktualnie wybrany lek: </p>
+                                    <p>Brak</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                            <div class="service-item rounded pt-3">
+                                <div class="p-4" style="text-align:center"><br><br>
+                                    <i class="fa fa-3x text-primary mb-4"></i>
+                                    <a class="btn btn-link" href="">Kolumna D</a>
+                                    <br>
+                                    <p>Aktualnie wybrany lek: </p>
+                                    <p>Lek X</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="service-item rounded pt-3">
+                                <div class="p-4" style="text-align:center"><br><br>
+                                    <i class="fa fa-3x text-primary mb-4"></i>
+                                    <a class="btn btn-link" href="">Kolumna E</a>
+                                    <br>
+                                    <p>Aktualnie wybrany lek: </p>
+                                    <p>Brak</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                            <br><br><br><br>
+                            <a href="" class="btn btn-primary py-1 px-1" style="font-size: 10px;">Prześlij konfigurację do
+                                organizera</a> <br><br>
+                            <a href="" class="btn btn-secondary py-1 px-1" style="font-size: 10px;">Przywróć poprzednią
+                                konfigurację</a>
+    
+                        </div>
+    
+                    </div>
+                </div>
+    
+            </div>
+			<div id="o1a" class="tabcontent">
+        <div class="container-xxl py-5">
+            <form id="form1a">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h1 class="mb-5" style="font-size: 20px;">Konfigurujesz kolumnę A</h1>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-2">
+
+                    </div>
+                    <div class="col-lg-3">
+                        <b>Nazwa leku</b>
+                    </div>
+                    <div class="col-lg-3">
+                        <input type="text" name="medicineName">
+                    </div>
+                </div><br>
+                <div class="row g-4">
+                    <div class="col-lg-2">
+                    </div>
+                    <div class="col-lg-3">
+                        <b>Pory zażywania </b>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" name="times" value="Rano">Rano<br>
+                        <input type="checkbox" name="times" value="Poludnie"> Południe<br>
+                        <input type="checkbox" name="times" value="Wieczorem"> Wieczorem<br>
+                    </div>
+                    <div class="text-center col-lg-4">
+                        Domyślne pory zażywania leków to 8:00 (rano), 12:00 (południe) oraz 18:00 (wieczór). Jeśli
+                        chcesz je zmienić lub dodać inne pory, przejdź do zakładki Pory zażywania.
+                        <a href="" class="btn btn-secondary py-1 px-1">Przejdź do Pory zażywania</a>
+                    </div>
+                </div><br>
+                <div class="row g-4">
+                    <div class="col-lg-2">
+
+                    </div>
+                    <div class="col-lg-3">
+                        <b>Dni zażywania</b>
+                    </div>
+                    <div class="col-lg-3">
+                        <select id="days" multiple>
+                            <option value="codziennie">Codziennie</option>
+                            <option value="poniedzialek">Poniedziałek</option>
+                            <option value="wtorek">Wtorek</option>
+                            <option value="sroda">Środa</option>
+                            <option value="czwartek">Czwartek</option>
+                            <option value="piatek">Piątek</option>
+                            <option value="sobota">Sobota</option>
+                            <option value="niedziela">Niedziela</option>
+                        </select>
+                    </div>
+                </div><br>
+                <div class="row g-4">
+                    <div class="col-lg-2">
+
+                    </div>
+                    <div class="col-lg-3">
+                        <b>Alarm dźwiękowy</b>
+                    </div>
+                    <div class="col-lg-3">
+                        <select>
+                            <option value="">---</option>
+                            <option value="dzwiek">Tak</option>
+                            <option value="bezdzwiek">Nie</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-2">
+                        <a href="" class="btn btn-primary py-1 px-1">Zapisz konfigurację</a>
+                    </div>
+                </div><br>
+                <div class="row g-4">
+                    <div class="col-lg-2">
+
+                    </div>
+                    <div class="col-lg-3">
+                        <b>Alarm świetlny</b>
+                    </div>
+                    <div class="col-lg-3">
+                        <select>
+                            <option value="">---</option>
+                            <option value="dzwiek">Tak</option>
+                            <option value="bezdzwiek">Nie</option>
+                        </select>
+                    </div>
+                </div><br>
+                <button type="button" id="submit">Submit</button>
+
+            </form>
+        </div>
+    </div>
+
+	<div id="o1b" class="tabcontent">
+        <div class="container-xxl py-5">
+            <form id="form1a">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h1 class="mb-5" style="font-size: 20px;">Konfigurujesz kolumnę B</h1>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-2">
+
+                    </div>
+                    <div class="col-lg-3">
+                        <b>Nazwa leku</b>
+                    </div>
+                    <div class="col-lg-3">
+                        <input type="text" name="medicineName">
+                    </div>
+                </div><br>
+                <div class="row g-4">
+                    <div class="col-lg-2">
+                    </div>
+                    <div class="col-lg-3">
+                        <b>Pory zażywania </b>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="checkbox" name="times" value="Rano">Rano<br>
+                        <input type="checkbox" name="times" value="Poludnie"> Południe<br>
+                        <input type="checkbox" name="times" value="Wieczorem"> Wieczorem<br>
+                    </div>
+                    <div class="text-center col-lg-4">
+                        Domyślne pory zażywania leków to 8:00 (rano), 12:00 (południe) oraz 18:00 (wieczór). Jeśli
+                        chcesz je zmienić lub dodać inne pory, przejdź do zakładki Pory zażywania.
+                        <a href="" class="btn btn-secondary py-1 px-1">Przejdź do Pory zażywania</a>
+                    </div>
+                </div><br>
+                <div class="row g-4">
+                    <div class="col-lg-2">
+
+                    </div>
+                    <div class="col-lg-3">
+                        <b>Dni zażywania</b>
+                    </div>
+                    <div class="col-lg-3">
+                        <select id="days" multiple>
+                            <option value="codziennie">Codziennie</option>
+                            <option value="poniedzialek">Poniedziałek</option>
+                            <option value="wtorek">Wtorek</option>
+                            <option value="sroda">Środa</option>
+                            <option value="czwartek">Czwartek</option>
+                            <option value="piatek">Piątek</option>
+                            <option value="sobota">Sobota</option>
+                            <option value="niedziela">Niedziela</option>
+                        </select>
+                    </div>
+                </div><br>
+                <div class="row g-4">
+                    <div class="col-lg-2">
+
+                    </div>
+                    <div class="col-lg-3">
+                        <b>Alarm dźwiękowy</b>
+                    </div>
+                    <div class="col-lg-3">
+                        <select>
+                            <option value="">---</option>
+                            <option value="dzwiek">Tak</option>
+                            <option value="bezdzwiek">Nie</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-2">
+                        <a href="" class="btn btn-primary py-1 px-1">Zapisz konfigurację</a>
+                    </div>
+                </div><br>
+                <div class="row g-4">
+                    <div class="col-lg-2">
+
+                    </div>
+                    <div class="col-lg-3">
+                        <b>Alarm świetlny</b>
+                    </div>
+                    <div class="col-lg-3">
+                        <select>
+                            <option value="">---</option>
+                            <option value="dzwiek">Tak</option>
+                            <option value="bezdzwiek">Nie</option>
+                        </select>
+                    </div>
+                </div><br>
+                <button type="button" id="submit">Submit</button>
+
+            </form>
+        </div>
+    </div>
+
+        </div>
+        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="container-xxl py-5">
+                <br>
+                <div class="container">
+                    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                        <h1 class="mb-5">Skonfiguruj organizer 2</h1>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-lg-1">
+                            <br><br><br><br>
+                            <p style="font-size: 9px;">Jeśli chcesz usunąć organizer z profilu, kliknij poniższy przycisk
+                            </p> <br><br>
+                            <a href="" class="btn btn-secondary py-1 px-1" style="font-size: 7px;">Usuń organizer</a>
+    
+                        </div>
+                        <div class="col-lg-2 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="service-item rounded pt-3">
+                                <div class="p-4" style="text-align:center"><br><br>
+                                    <i class="fa fa-3x text-primary mb-4"></i>
+                                    <a class="btn btn-link" href="#o1">Kolumna A</a>
+                                    <br>
+                                    <p>Aktualnie wybrany lek: </p>
+                                    <!--<a href="" class="btn btn-primary py-1 px-1">Wyczyść konfigurację</a> -->
+                                    <p>Brak</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                            <div class="service-item rounded pt-3">
+                                <div class="p-4" style="text-align:center"><br><br>
+                                    <i class="fa fa-3x text-primary mb-4"></i>
+                                    <a class="btn btn-link" href="#o1">Kolumna B</a>
+                                    <br>
+                                    <p>Aktualnie wybrany lek: </p>
+                                    <p>Lek Y</p>
+    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+                            <div class="service-item rounded pt-3">
+                                <div class="p-4" style="text-align:center"><br><br>
+                                    <i class="fa fa-3x text-primary mb-4"></i>
+                                    <a class="btn btn-link" href="">Kolumna C</a>
+                                    <br>
+                                    <p>Aktualnie wybrany lek: </p>
+                                    <p>Brak</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                            <div class="service-item rounded pt-3">
+                                <div class="p-4" style="text-align:center"><br><br>
+                                    <i class="fa fa-3x text-primary mb-4"></i>
+                                    <a class="btn btn-link" href="">Kolumna D</a>
+                                    <br>
+                                    <p>Aktualnie wybrany lek: </p>
+                                    <p>Lek X</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="service-item rounded pt-3">
+                                <div class="p-4" style="text-align:center"><br><br>
+                                    <i class="fa fa-3x text-primary mb-4"></i>
+                                    <a class="btn btn-link" href="">Kolumna E</a>
+                                    <br>
+                                    <p>Aktualnie wybrany lek: </p>
+                                    <p>Brak</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                            <br><br><br><br>
+                            <a href="" class="btn btn-primary py-1 px-1" style="font-size: 10px;">Prześlij konfigurację do
+                                organizera</a> <br><br>
+                            <a href="" class="btn btn-secondary py-1 px-1" style="font-size: 10px;">Przywróć poprzednią
+                                konfigurację</a>
+    
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src={% static "lib/wow/wow.min.js" %}></script>
+    <script src={% static "lib/easing/easing.min.js" %}></script>
+    <script src={% static "lib/waypoints/waypoints.min.js" %}></script>
+    <script src={% static "lib/counterup/counterup.min.js" %}></script>
+    <script src={% static "lib/owlcarousel/owl.carousel.min.js" %}></script>
+    <script src={% static "lib/tempusdominus/js/moment.min.js" %}></script>
+    <script src={% static "lib/tempusdominus/js/moment" %}-timezone.min.js"></script>
+    <script src={% static "lib/tempusdominus/js/tempusdominus" %}-bootstrap-4.min.js"></script>
+
+
+    <!-- Template Javascript -->
+    <script src={% static "js/main.js" %}></script>
+    <script type="text/javascript">
+        function showForm() {
+            form = document.getElementById('form1a');
+            if (form.style.display === 'none') {
+                // 👇️ this SHOWS the form
+                form.style.display = 'block';
+            } else {
+                // 👇️ this HIDES the form
+                form.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+
+</html>
