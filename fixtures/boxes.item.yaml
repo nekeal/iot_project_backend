@@ -1,0 +1,12 @@
+- model: boxes.item
+  pk: 1
+  fields:
+    name: Apap
+    color: white
+    size: medium
+- model: boxes.item
+  pk: 2
+  fields:
+    name: Rutinoscorbin
+    color: yellow
+    size: small

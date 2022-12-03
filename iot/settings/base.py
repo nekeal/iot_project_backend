@@ -113,6 +113,7 @@ USE_TZ = True
 # ------------- STATIC -------------
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR.joinpath("public")
+STATICFILES_DIRS = [APPS_DIR.joinpath("static")]
 
 # ------------- MEDIA -------------
 MEDIA_URL = "/media/"
