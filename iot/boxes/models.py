@@ -24,3 +24,7 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+
+class TimeOfDay(models.Model):
+    name = models.CharField(_("Name"), max_length=255)
+    time = models.TimeField()
