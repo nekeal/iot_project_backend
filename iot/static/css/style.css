@@ -562,13 +562,12 @@ button {
     transform: translate3d(-640px, 0, 0);
 }
 
-button {
+.button-k {
     display: block;
     margin: 0 auto;
     width: 260px;
     height: 36px;
     border-radius: 30px;
-    color: #fff;
     font-size: 15px;
     cursor: pointer;
 }
