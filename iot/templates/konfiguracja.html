@@ -70,14 +70,17 @@
     <br><br><br><br><br><br>
 	<div class="container text-center">
 		<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-			<li class="nav-item" role="presentation">
+            {% for organizer in organizers %}
+            <li class="nav-item" role="presentation">
 				<button class="nav-link active button-k" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home"
-					type="button" role="tab" aria-controls="pills-home" aria-selected="true">Organizer 1</button>
+					type="button" role="tab" aria-controls="pills-home" aria-selected="true">{{ organizer.name}}</button>
 			</li>
-			<li class="nav-item" role="presentation">
-				<button class="nav-link button-k" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
-					type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Organizer 2</button>
-			</li>
+            {% endfor %}
+{#		#}
+{#			<li class="nav-item" role="presentation">#}
+{#				<button class="nav-link button-k" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"#}
+{#					type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Organizer 2</button>#}
+{#			</li>#}
 		</ul>
 	</div>
     <div class="tab-content" id="pills-tabContent">
@@ -283,9 +286,9 @@
                         <b>Pory zażywania </b>
                     </div>
                     <div class="col-lg-2">
-                        <input type="checkbox" name="times" value="Rano">Rano<br>
-                        <input type="checkbox" name="times" value="Poludnie"> Południe<br>
-                        <input type="checkbox" name="times" value="Wieczorem"> Wieczorem<br>
+                        {% for time in times_of_day %}
+                            <input type="checkbox" name="times" value="{{ time.value }}">{{ time.name }}<br>
+                        {% endfor %}
                     </div>
                     <div class="text-center col-lg-4">
                         Domyślne pory zażywania leków to 8:00 (rano), 12:00 (południe) oraz 18:00 (wieczór). Jeśli

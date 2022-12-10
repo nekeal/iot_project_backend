@@ -25,6 +25,27 @@ class Item(models.Model):
     def __str__(self):
         return self.name
 
+
 class TimeOfDay(models.Model):
     name = models.CharField(_("Name"), max_length=255)
     time = models.TimeField()
+
+
+class Organizer(models.Model):
+    name = models.CharField(_("Name"), max_length=255)
+    serial_number = models.CharField(_("Serial Number"), max_length=255, unique=True)
+
+    column_a = models.JSONField(_("Column A"), default=dict, blank=True)
+    column_b = models.JSONField(_("Column B"), default=dict, blank=True)
+    column_c = models.JSONField(_("Column C"), default=dict, blank=True)
+    column_d = models.JSONField(_("Column D"), default=dict, blank=True)
+
+    owner = models.ForeignKey(
+        "accounts.CustomUser", on_delete=models.CASCADE, related_name="owned_boxes"
+    )
+    users = models.ManyToManyField(
+        "accounts.CustomUser", related_name="boxes", blank=True
+    )
+
+    def __str__(self):
+        return self.name

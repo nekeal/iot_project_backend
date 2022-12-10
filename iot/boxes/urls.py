@@ -2,8 +2,15 @@ from typing import Any, List
 
 from django.urls import path
 
-from iot.boxes.views import PublishMessageFormView, BoxConfigView, TimeOfDayView, AddOrganizerView, WelcomePageView, \
-    ProfileView, MainPageView
+from iot.boxes.views import (
+    AddOrganizerView,
+    BoxConfigView,
+    MainPageView,
+    ProfileView,
+    PublishMessageFormView,
+    TimeOfDayView,
+    WelcomePageView,
+)
 
 app_name = "boxes"
 

@@ -1,14 +1,14 @@
 import json
-from typing import Any
+from typing import Any, Dict
 
 from django.contrib import messages
 from django.contrib.admin import site as admin_site
 from django.http import HttpRequest, HttpResponse
-from django.views.generic import FormView, TemplateView, ListView
+from django.views.generic import FormView, ListView, TemplateView
 
 from iot.boxes.client import BoxMqttClient
 from iot.boxes.forms import PublishMessageForm
-from iot.boxes.models import TimeOfDay
+from iot.boxes.models import Organizer, TimeOfDay
 
 
 class PublishMessageFormView(FormView):
@@ -41,6 +41,13 @@ class PublishMessageFormView(FormView):
 class BoxConfigView(TemplateView):
     template_name = "konfiguracja.html"
 
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        return {
+            **super().get_context_data(**kwargs),
+            "organizers": Organizer.objects.filter(),
+            "times_of_day": TimeOfDay.objects.all(),
+        }
+
 
 class TimeOfDayView(ListView):
     template_name = "pory.html"
@@ -57,6 +64,7 @@ class MainPageView(TemplateView):
 
 class ProfileView(TemplateView):
     template_name = "profil.html"
+
 
 class WelcomePageView(TemplateView):
     template_name = "welcome_page.html"
