@@ -44,7 +44,7 @@ class BoxConfigView(TemplateView):
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         return {
             **super().get_context_data(**kwargs),
-            "organizers": Organizer.objects.filter(),
+            "organizers": Organizer.objects.order_by("id"),
             "times_of_day": TimeOfDay.objects.all(),
         }
 
