@@ -4,8 +4,11 @@ from typing import Any, Dict
 from django.contrib import messages
 from django.contrib.admin import site as admin_site
 from django.http import HttpRequest, HttpResponse
+from django.shortcuts import redirect
 from django.views.generic import FormView, ListView, TemplateView
+from rest_framework.generics import CreateAPIView, get_object_or_404
 
+from iot.accounts.models import CustomUser
 from iot.boxes.client import BoxMqttClient
 from iot.boxes.forms import PublishMessageForm
 from iot.boxes.models import Organizer, TimeOfDay
@@ -68,3 +71,15 @@ class ProfileView(TemplateView):
 
 class WelcomePageView(TemplateView):
     template_name = "welcome_page.html"
+
+
+class ShareProfileView(CreateAPIView):
+
+    def post(self, request, *args, **kwargs):
+        username = request.data.get('username')
+        user = get_object_or_404(CustomUser, username=username)
+        for organizer in Organizer.objects.filter(owner=request.user):
+            organizer.users.add(user)
+        messages.success(request, f"Profil został udostępniony dla użytkownika {username}")
+        return redirect('boxes:profile')
+
