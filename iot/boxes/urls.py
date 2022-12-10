@@ -8,8 +8,10 @@ from iot.boxes.views import (
     MainPageView,
     ProfileView,
     PublishMessageFormView,
+    RegisterOrganizerView,
+    ShareProfileView,
     TimeOfDayView,
-    WelcomePageView, ShareProfileView,
+    WelcomePageView,
 )
 
 app_name = "boxes"
@@ -23,4 +25,9 @@ urlpatterns: List[Any] = [
     path("witaj/", WelcomePageView.as_view(), name="welcome_page"),
     path("profil/", ProfileView.as_view(), name="profile"),
     path("wspoldziel/", ShareProfileView.as_view(), name="share_profile"),
+    path(
+        "zarejestruj-organizer/",
+        RegisterOrganizerView.as_view(),
+        name="register_organizer",
+    ),
 ]

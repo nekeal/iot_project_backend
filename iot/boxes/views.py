@@ -74,12 +74,25 @@ class WelcomePageView(TemplateView):
 
 
 class ShareProfileView(CreateAPIView):
-
     def post(self, request, *args, **kwargs):
-        username = request.data.get('username')
+        username = request.data.get("username")
         user = get_object_or_404(CustomUser, username=username)
         for organizer in Organizer.objects.filter(owner=request.user):
             organizer.users.add(user)
-        messages.success(request, f"Profil został udostępniony dla użytkownika {username}")
-        return redirect('boxes:profile')
+        messages.success(
+            request, f"Profil został udostępniony dla użytkownika {username}"
+        )
+        return redirect("boxes:profile")
 
+
+class RegisterOrganizerView(CreateAPIView):
+    def post(self, request, *args, **kwargs):
+        Organizer.objects.create(
+            name=request.data.get("name"),
+            serial_number=request.data.get("serial_number"),
+            owner=request.user,
+        )
+        messages.success(
+            request, f"Organizer '{request.data.get('name')}' został zarejestrowany"
+        )
+        return redirect("boxes:box_config")
