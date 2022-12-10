@@ -78,11 +78,11 @@
           <div class="row gx-5">
             <div class="col-lg-8 col-md-8">
               <h4 class="mb-4">Dodaj nowy organizer</h4>
-              <form>
+              <form method="post" action="{% url "boxes:register_organizer" %}">
                 <div class="row mb-3">
                   <label for="idOrganizera" class="col-sm-2 col-form-label">ID (numer) organizera</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" id="idOrganizera">
+                    <input type="text" class="form-control" name="serial_number" id="idOrganizera">
                   </div>
                   <div class="col-lg-1 col-sm-1">
                     <button type="button" class="btn btn-outline" data-bs-toggle="tooltip" data-bs-placement="right" title="Unikalny numer znajdziesz na spodzie organizera.">
@@ -93,8 +93,9 @@
                 <div class="row mb-3">
                   <label for="nazwaOrganizera" class="col-sm-2 col-form-label">Nazwa organizera</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" id="nazwaOrganizera">
+                    <input type="text" class="form-control" name="name" id="nazwaOrganizera">
                   </div>
+                    {% csrf_token %}
                   <div class="col-lg-1 col-sm-1">
                     <button type="button" class="btn btn-outline" data-bs-toggle="tooltip" data-bs-placement="right" title="Dowolna nazwa, pod która będzie widoczny Twój organizer. Jeżeli masz więcej niż jeden organizer, nazwy organizerów muszą być różne.">
                       <i class="bi bi-question-circle"></i>

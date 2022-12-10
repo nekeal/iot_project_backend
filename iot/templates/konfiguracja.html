@@ -69,6 +69,17 @@
 
     <br><br><br><br><br><br>
 	<div class="container text-center">
+            {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <div class="container-fluid p-0">
+                  <div class="alert btn-success alert-dismissible" role="alert" >
+                    {{ message }}
+                  </div>
+                </div>
+            {% endfor %}
+        </ul>
+    {% endif %}
 		<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
             {% for organizer in organizers %}
             <li class="nav-item" role="presentation">
