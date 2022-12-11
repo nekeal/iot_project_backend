@@ -8,7 +8,4 @@ ipython
 environs
 paho-mqtt
 django-json-widget
-<<<<<<< HEAD
 pyyaml
-=======
->>>>>>> 21.2-sw-integracja-broker-backend

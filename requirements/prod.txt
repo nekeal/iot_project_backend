@@ -113,11 +113,8 @@ pytz==2022.5
     # via
     #   -r base.txt
     #   djangorestframework
-<<<<<<< HEAD
 pyyaml==6.0
     # via -r base.txt
-=======
->>>>>>> 21.2-sw-integracja-broker-backend
 sentry-sdk==1.10.1
     # via -r prod.in
 six==1.16.0
