@@ -3,6 +3,8 @@ from typing import Any, Dict
 
 from django.contrib import messages
 from django.contrib.admin import site as admin_site
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect
 from django.views.generic import FormView, ListView, TemplateView
@@ -41,7 +43,7 @@ class PublishMessageFormView(FormView):
             return self.form_invalid(form)
 
 
-class BoxConfigView(TemplateView):
+class BoxConfigView(LoginRequiredMixin, TemplateView):
     template_name = "konfiguracja.html"
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
@@ -52,28 +54,39 @@ class BoxConfigView(TemplateView):
         }
 
 
-class TimeOfDayView(ListView):
+class TimeOfDayView(LoginRequiredMixin, ListView):
     template_name = "pory.html"
     queryset = TimeOfDay.objects.all()
 
 
-class AddOrganizerView(TemplateView):
+class AddOrganizerView(LoginRequiredMixin, TemplateView):
     template_name = "dodaj_organizer.html"
 
 
-class MainPageView(TemplateView):
+class MainPageView(LoginRequiredMixin, TemplateView):
     template_name = "glowna.html"
 
 
-class ProfileView(TemplateView):
+class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = "profil.html"
 
 
 class WelcomePageView(TemplateView):
     template_name = "welcome_page.html"
 
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        if request.user.is_authenticated:
+            return redirect("boxes:box_config")
+        return super().get(request, *args, **kwargs)
 
-class ShareProfileView(CreateAPIView):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        response = LoginView.as_view(
+            template_name="welcome_page.html", next_page="boxes:box_config"
+        )(request)
+        return response
+
+
+class ShareProfileView(LoginRequiredMixin, CreateAPIView):
     def post(self, request, *args, **kwargs):
         username = request.data.get("username")
         user = get_object_or_404(CustomUser, username=username)
@@ -85,7 +98,7 @@ class ShareProfileView(CreateAPIView):
         return redirect("boxes:profile")
 
 
-class RegisterOrganizerView(CreateAPIView):
+class RegisterOrganizerView(LoginRequiredMixin, CreateAPIView):
     def post(self, request, *args, **kwargs):
         Organizer.objects.create(
             name=request.data.get("name"),

@@ -38,20 +38,22 @@
 <h5 style="text-align: center">Witaj! Dziękujemy za zakup Inteligentnego Organizera na Leki. Aby przejść do konfiguracji urządzenia, zaloguj się.</h5>
     <br><br>
     <div class="cont">
+        <form method="post">
         <div class="form sign-in">
             <h2>Zaloguj się</h2>
             <label>
                 <span>Login</span>
-                <input type="email" />
+                <input name="username" type="text" />
             </label>
             <label>
                 <span>Hasło</span>
-                <input type="password" />
+                <input name="password" type="password" />
             </label>
+            {% csrf_token %}
             <button type="button" class="forgot-pass">Nie pamiętasz hasła?</button>
-            <button type="button" class="submit" href="{% url "boxes:main_page" %}">Zaloguj się</button>
-         
+            <button type="submit" class="submit">Zaloguj się</button>
         </div>
+            </form>
         <div class="sub-cont">
             <div class="img">
                 <div class="img__text m--up">
