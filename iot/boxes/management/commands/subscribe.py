@@ -50,7 +50,6 @@ class Command(BaseCommand):
         
         # set username and password
         mqtt_passwd = os.environ["HIVEMQ_PASSWORD"]
-        mqtt_passwd = "8b70ty34ft2inuhdafbvjhsafg)*&^TFU&^*(_UV$^%^$%_)($%!(*@#KUGAFVD872134509yfsd"
         print(mqtt_passwd)
         client.username_pw_set("IoT_2022_drug_dealer", mqtt_passwd)
         
