@@ -50,13 +50,43 @@ class BoxConfigView(LoginRequiredMixin, TemplateView):
         return {
             **super().get_context_data(**kwargs),
             "organizers": Organizer.objects.order_by("id"),
-            "times_of_day": TimeOfDay.objects.all(),
+            "times_of_day": TimeOfDay.objects.all().order_by('time').values(),
         }
 
 
 class TimeOfDayView(LoginRequiredMixin, ListView):
     template_name = "pory.html"
-    queryset = TimeOfDay.objects.all()
+    queryset = TimeOfDay.objects.all().order_by('time').values()
+    
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+        if "name" in request.POST:
+            TimeOfDay.objects.create(
+                name=request.POST["name"],
+                time=request.POST["time"],
+            )
+            messages.success(
+                request, f"Pora została dodana"
+            )
+            return redirect("boxes:time_of_day")
+        if "delete" in request.POST:
+            time = TimeOfDay.objects.get(id=request.POST["delete"])
+            time.delete()
+            messages.success(
+                request, f"Pora została usunięta"
+            )
+            return redirect("boxes:time_of_day")
+        if "edit" in request.POST:
+            time = TimeOfDay.objects.get(id=request.POST["edit"])
+            time.name = request.POST["name-edit"]
+            time.time = request.POST["time-edit"]
+            time.save()
+            messages.success(
+                request, f"Pora została zmieniona"
+            )
+            return redirect("boxes:time_of_day")
+        else:
+            return redirect("boxes:time_of_day")
 
 
 class AddOrganizerView(LoginRequiredMixin, TemplateView):

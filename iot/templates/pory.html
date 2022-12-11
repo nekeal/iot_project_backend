@@ -71,6 +71,17 @@
 		<br><br><br><br>
     <!-- Service Start -->
     <div class="container-xxl py-5">
+      {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <div class="container-fluid p-0">
+                  <div class="alert btn-success alert-dismissible" role="alert" >
+                    {{ message }}
+                  </div>
+                </div>
+            {% endfor %}
+        </ul>
+      {% endif %}
       <div class="container text-center">
         <h4 class="mb-4">Pory zażywania leków użytkownika {{ request.user }}</h4>
         <div class="container text-center">
@@ -89,8 +100,8 @@
                        <td>{{ time.name }}</td>
                 <td>{{ time.time | time:"H:i" }}</td>
                 <td><button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#Edytuj">Edytuj</button></td>
-                <td> <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalUsun">
+                    data-bs-target="#Edytuj{{ time.id }}">Edytuj</button></td>
+                <td> <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalUsun{{ time.id }}">
                     <i class="bi bi-trash"></i>
                 </button></td></tr>
                   {% endfor %}
@@ -107,7 +118,7 @@
         <div class="modal fade" id="Dodaj" tabindex="-1" aria-labelledby="modalDodaj" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-              <form>
+              <form method="post" action="{% url "boxes:time_of_day" %}">
                 <div class="modal-header">
                   <h5 class="modal-title" id="modalDodaj">Dodaj nową porę</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -117,31 +128,34 @@
                   <div class="form-group row mb-2">
                     <label for="poraNazwa" class="col-sm-4 col-form-label">Nazwa</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" id="poraNazwa">
+                      <input type="text" class="form-control" id="poraNazwa" name="name">
                     </div>
                   </div>
                   <div class="form-group row mb-2">
                     <label for="poraGodzina" class="col-sm-4 col-form-label">Godzina</label>
                     <div class="col-sm-8">
-                      <input type="time" class="form-control" id="poraGodzina">
+                      <input type="time" class="form-control" id="poraGodzina" name="time">
                     </div>
                   </div>
                 </div>
+                {% csrf_token %}
                 <div class="modal-footer justify-content-center">
-                  <button type="submit" class="btn btn-primary">Dodaj</button>
+                  <button type="submit" class="btn btn-primary" href="{% url "boxes:time_of_day" %}"">Dodaj</button>
                 </div>
               </form>
             </div>
           </div>
         </div>
 
-        <div class="modal fade" id="Edytuj" tabindex="-1" aria-labelledby="modalEdytuj" aria-hidden="true">
+        {% for time in object_list %}
+        <div class="modal fade" id="Edytuj{{ time.id }}" tabindex="-1" aria-labelledby="modalEdytuj{{ time.id }}" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-              <form>
+              <form method="post" action="{% url "boxes:time_of_day" %}">
+                {% csrf_token %}
                 <div class="modal-header">
                   <!-- x - nazwa pory -->
-                  <h5 class="modal-title" id="modalEdytuj">Edytujesz porę X</h5>
+                  <h5 class="modal-title" id="modalEdytuj {{ time.id }}">Edytujesz porę {{ time.name }}</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -149,18 +163,19 @@
                   <div class="form-group row mb-2">
                     <label for="poraNazwa" class="col-sm-4 col-form-label">Nazwa</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" id="poraNazwa">
+                      <input type="text" class="form-control" id="poraNazwa" value="{{ time.name }}" name="name-edit">
                     </div>
                   </div>
                   <div class="form-group row mb-2">
                     <label for="poraGodzina" class="col-sm-4 col-form-label">Godzina</label>
                     <div class="col-sm-8">
-                      <input type="time" class="form-control" id="poraGodzina">
+                      <input type="time" class="form-control" id="poraGodzina" value="{{ time.time | time:"H:i" }}" name="time-edit">
                     </div>
                   </div>
                 </div>
+                <input type="hidden" value="{{ time.id }}" name="edit">
                 <div class="modal-footer justify-content-center">
-                  <button type="submit" class="btn btn-primary">Zapisz</button>
+                  <button type="submit" class="btn btn-primary" href="{% url "boxes:time_of_day" %}"">Zapisz</button>
                 </div>
               </form>
             </div>
@@ -168,7 +183,7 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="modalUsun" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modalUsun{{ time.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-body">
@@ -176,17 +191,22 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="container text-center mb-4">
-                  <h5 class="modal-title" id="exampleModalLabel">Czy na pewno chcesz usunąć porę X?</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Czy na pewno chcesz usunąć porę "{{ time.name }}"?</h5>
                 </div>
                 <div class="container text-center">
                   <!-- akcja na tak -->
-                  <button type="button" class="btn btn-secondary col-sm-3 me-4">Tak</button>
-                  <button type="button" class="btn btn-primary col-sm-3 ms-4" data-bs-dismiss="modal">Nie</button>
+                  <form method="post" action="{% url "boxes:time_of_day" %}">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ time.id }}" name="delete">
+                    <button type="submit" class="btn btn-secondary col-sm-3 me-4" href="{% url "boxes:time_of_day" %}"">Tak</button>
+                    <button type="button" class="btn btn-primary col-sm-3 ms-4" data-bs-dismiss="modal">Nie</button>
+                </form>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        {% endfor %}
 
       </div>
     </div>
