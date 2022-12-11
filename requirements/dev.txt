@@ -153,7 +153,11 @@ pytest==7.2.0
     #   pytest-xdist
 pytest-django==4.5.2
     # via -r dev.in
+<<<<<<< HEAD
 pytest-sugar==0.9.6
+=======
+pytest-sugar==0.9.5
+>>>>>>> 21.2-sw-integracja-broker-backend
     # via -r dev.in
 pytest-xdist==3.0.2
     # via -r dev.in
@@ -165,8 +169,11 @@ pytz==2022.5
     # via
     #   -r base.txt
     #   djangorestframework
+<<<<<<< HEAD
 pyyaml==6.0
     # via -r base.txt
+=======
+>>>>>>> 21.2-sw-integracja-broker-backend
 six==1.16.0
     # via
     #   -r base.txt

@@ -8,6 +8,7 @@ WORKDIR /app
 
 ADD requirements/base.txt .
 
+<<<<<<< HEAD
 FROM backend-base as production
 ADD requirements/prod.txt .
 RUN --mount=type=cache,target=/root/.cache/pip pip install -r prod.txt
@@ -15,8 +16,18 @@ ADD . ./
 RUN python manage.py collectstatic --noinput
 
 
+=======
+>>>>>>> 21.2-sw-integracja-broker-backend
 FROM backend-base as backend-dev
 ADD requirements/dev.txt .
 RUN --mount=type=cache,target=/root/.cache/pip pip install -r dev.txt
 ADD . ./
 
+<<<<<<< HEAD
+=======
+FROM backend-base as production
+ADD requirements/prod.txt .
+RUN --mount=type=cache,target=/root/.cache/pip pip install -r prod.txt
+ADD . ./
+RUN python manage.py collectstatic --noinput
+>>>>>>> 21.2-sw-integracja-broker-backend

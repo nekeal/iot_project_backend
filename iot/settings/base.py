@@ -22,6 +22,7 @@ ALLOWED_HOSTS = []
 DJANGO_APPS = [
     "jazzmin",
     "iot.apps.CustomAdminConfig",
+    "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -116,6 +117,7 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR.joinpath("public")
 STATICFILES_DIRS = [APPS_DIR.joinpath("static")]
+
 
 # ------------- MEDIA -------------
 MEDIA_URL = "/media/"

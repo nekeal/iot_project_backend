@@ -12,7 +12,11 @@ services:
       - .:/app
     environment:
       POSTGRES_HOST: postgres
+<<<<<<< HEAD
     command: "python manage.py runserver 0:8000"
+=======
+    command: python manage.py runserver 0:8000"
+>>>>>>> 21.2-sw-integracja-broker-backend
     depends_on:
       - postgres
 
@@ -21,10 +25,13 @@ services:
     image: postgres:13-alpine
     ports:
       - "5432:5432"
+<<<<<<< HEAD
     environment:
       POSTGRES_USER: iot_project_backend
       POSTGRES_DATABASE: iot_project_backend
       POSTGRES_PASSWORD: iot_project_backend
+=======
+>>>>>>> 21.2-sw-integracja-broker-backend
     volumes:
       - pgdata:/var/lib/postgresql/data/
 

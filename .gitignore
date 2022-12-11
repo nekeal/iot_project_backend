@@ -29,7 +29,10 @@ downloads/
 eggs/
 .eggs/
 lib/
+<<<<<<< HEAD
 !static/lib
+=======
+>>>>>>> 21.2-sw-integracja-broker-backend
 lib64/
 parts/
 sdist/

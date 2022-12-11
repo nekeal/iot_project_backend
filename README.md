@@ -35,6 +35,7 @@ make bootstrap
 
 ## Docker way
 
+<<<<<<< HEAD
 We use [Docker Buildkit](https://docs.docker.com/develop/develop-images/build_enhancements/)
 so make sure you have it enabled.
 
@@ -50,13 +51,24 @@ Usually you want to use `docker-compose up` command to start containers.
 Web interface is exposed unset `8000` port. 
 
 Then you can run any command inside the docker container:
+=======
+Start the dev server for local development:
+```bash
+docker-compose up
+```
+
+Run a command inside the docker container:
+>>>>>>> 21.2-sw-integracja-broker-backend
 
 ```bash
 docker-compose run --rm web [command]
 ```
+<<<<<<< HEAD
 
 ## Default login credentials
 
 login: admin
 
 password: administrator
+=======
+>>>>>>> 21.2-sw-integracja-broker-backend

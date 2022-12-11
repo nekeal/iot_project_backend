@@ -19,7 +19,11 @@ omit = [
 ]
 
 [tool.pytest.ini_options]
+<<<<<<< HEAD
 DJANGO_SETTINGS_MODULE = "iot.settings.local"
+=======
+DJANGO_SETTINGS_MODULE = "iot_project_backend.settings.local"
+>>>>>>> 21.2-sw-integracja-broker-backend
 python_files = ["tests.py", "test_*.py", "*_tests.py"]
 norecursedirs = ["deployment*",
                  ".git/*",
