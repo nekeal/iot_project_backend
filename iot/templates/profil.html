@@ -44,14 +44,11 @@
                     <span class="fa fa-bars"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-					<div class="navbar-nav ms-auto py=2 px=3>
-						<label for="inputState" class="form-label">Wybrany profil uzytkownika</label>
-                        <select id="inputState" class="form-select">
-                          <option selected>Mój profil</option>
-                          <option>Profil udostępniony 1</option>
-						  <option>Profil udostępniony 2</option>
-                        </select>
-					</div>
+                    <div class="navbar-nav ms-auto py=2 px=3">
+                        <br>
+                        <b>Aktualnie zalogowany użytkownik: &ensp; </b>
+                        <p >{{ request.user }}</p>
+                    </div>
 					<div class="navbar-nav ms-auto py-0 pe-4">
                         <a href="{% url "boxes:main_page" %}" class="nav-item nav-link">Strona główna</a>
                         <a href="{% url "boxes:box_config" %}" class="nav-item nav-link ">Organizer</a>
