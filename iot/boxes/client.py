@@ -40,7 +40,6 @@ class BoxMqttClient:
                 **self._connection_data,
                 protocol=paho.MQTTv5,
                 tls=self._tls,
-                retain=True
             )
             return True
         except MQTTException:
