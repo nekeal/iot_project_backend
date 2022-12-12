@@ -42,14 +42,11 @@
                     <span class="fa fa-bars"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-					<div class="navbar-nav ms-auto py=2 px=3>
-						<label for="inputState" class="form-label">Wybrany profil uzytkownika</label>
-                        <select id="inputState" class="form-select">
-                          <option selected>Mój profil</option>
-                          <option>Profil udostępniony 1</option>
-						  <option>Profil udostępniony 2</option>
-                        </select>
-					</div>
+                    <div class="navbar-nav ms-auto py=2 px=3">
+                        <br>
+                        <b>Aktualnie zalogowany użytkownik: &ensp; </b>
+                        <p >{{ request.user }}</p>
+                    </div>
 					<div class="navbar-nav ms-auto py-0 pe-4">
                         <a href="{% url "boxes:main_page" %}" class="nav-item nav-link">Strona główna</a>
                         <a href="{% url "boxes:box_config" %}" class="nav-item nav-link active">Organizer</a>
@@ -84,11 +81,11 @@
             {% for organizer in organizers %}
             {% if forloop.counter == 1 %}
             <li class="nav-item" role="presentation">
-				<button class="nav-link active" id="{{ organizer.serial_number }}-tab" data-bs-toggle="pill" data-bs-target="#{{ organizer.serial_number }}" type="button" role="tab" aria-controls="{{ organizer.serial_number }}" aria-selected="true">{{ organizer.name}} {% if organizer.owner != request.user %}( {{ organizer.owner }} ){% endif %}</button>
+				<button class="nav-link active" id="id_{{ organizer.serial_number }}-tab" data-bs-toggle="pill" data-bs-target="#id_{{ organizer.serial_number }}" type="button" role="tab" aria-controls="id_{{ organizer.serial_number }}" aria-selected="true">{{ organizer.name}} {% if organizer.owner != request.user %}( {{ organizer.owner }} ){% endif %}</button>
 			</li>
             {% else %}
             <li class="nav-item" role="presentation">
-				<button class="nav-link" id="{{ organizer.serial_number }}-tab" data-bs-toggle="pill" data-bs-target="#{{ organizer.serial_number }}" type="button" role="tab" aria-controls="{{ organizer.serial_number }}" aria-selected="false">{{ organizer.name}} {% if organizer.owner != request.user %}( {{ organizer.owner }} ){% endif %}</button>
+				<button class="nav-link" id="id_{{ organizer.serial_number }}-tab" data-bs-toggle="pill" data-bs-target="#id_{{ organizer.serial_number }}" type="button" role="tab" aria-controls="id_{{ organizer.serial_number }}" aria-selected="false">{{ organizer.name}} {% if organizer.owner != request.user %}( {{ organizer.owner }} ){% endif %}</button>
 			</li>
             {% endif %}
             {% endfor %}
@@ -98,9 +95,9 @@
     <div class="tab-content" id="pills-tabContent">
         {% for organizer in organizers %}
         {% if forloop.counter == 1 %}
-        <div class="tab-pane fade show active" id="{{ organizer.serial_number }}" role="tabpanel" aria-labelledby="{{ organizer.serial_number }}-tab">
+        <div class="tab-pane fade show active" id="id_{{ organizer.serial_number }}" role="tabpanel" aria-labelledby="id_{{ organizer.serial_number }}-tab">
         {% else %}
-        <div class="tab-pane fade" id="{{ organizer.serial_number }}" role="tabpanel" aria-labelledby="{{ organizer.serial_number }}-tab">
+        <div class="tab-pane fade" id="id_{{ organizer.serial_number }}" role="tabpanel" aria-labelledby="id_{{ organizer.serial_number }}-tab">
         {% endif %}
             <div class="container-xxl py-5">
                 <br>
@@ -111,9 +108,9 @@
                     <div class="row g-4">
                         <div class="col-lg-1">
                             <br><br><br><br>
-                            <p style="font-size: 9px;">Jeśli chcesz usunąć organizer z profilu, kliknij poniższy przycisk
+                            <!--<p style="font-size: 9px;">Jeśli chcesz usunąć organizer z profilu, kliknij poniższy przycisk
                             </p> <br><br>
-                            <a href="" class="btn btn-secondary py-1 px-1" style="font-size: 7px;">Usuń organizer</a>
+                            <a href="" class="btn btn-secondary py-1 px-1" style="font-size: 7px;">Usuń organizer</a>-->
                         </div>
                         {% for i in 'abcde' %}
                         <div class="col-lg-2 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -122,9 +119,9 @@
                                     <i class="fa fa-3x text-primary mb-4"></i>
                                     <a class="btn btn-link tablinks" onclick="openCity(event, 'o{{ organizer.id }}{{ i }}');">Kolumna {{ i | capfirst }}</a>
                                     <br>
-                                    <p>Aktualnie wybrany lek: </p>
-                                    <!--<a href="" class="btn btn-primary py-1 px-1">Wyczyść konfigurację</a> -->
-                                    <p>Brak</p>
+                                    <!--<p>Aktualnie wybrany lek: </p>
+                                    <a href="" class="btn btn-primary py-1 px-1">Wyczyść konfigurację</a> -->
+                                    <p>Kliknij nazwę kolumny, aby przejść do jej konfiguracji</p>
                                 </div>
                             </div>
                         </div>
@@ -156,14 +153,14 @@
                             <div class="col-lg-3">
                                 <b>Pory zażywania </b>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-lg-3">
                                 {% for time in times_of_day %}
                                     <input type="checkbox" name="times" value="{{ time.name }}">{{ time.name }} ({{ time.time | time:"H:i" }})<br>
                                 {% endfor %}
                             </div>
                             <div class="text-center col-lg-4">
                                 Jeśli chcesz zmienić pory zażywania leków lub dodać nowe, przejdź do zakładki Pory zażywania.
-                                <a href="" class="btn btn-secondary py-1 px-1">Przejdź do Pory zażywania</a>
+                                <a href="{% url "boxes:time_of_day" %}" class="btn btn-secondary py-1 px-1">Przejdź do Pory zażywania</a>
                             </div>
                         </div><br>
                         <div class="row g-4">
