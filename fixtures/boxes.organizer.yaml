@@ -1,0 +1,11 @@
+- model: boxes.organizer
+  pk: 2
+  fields:
+    name: Organizer 1
+    serial_number: uuid-1
+    column_a: {}
+    column_b: {}
+    column_c: {}
+    column_d: {}
+    owner: 1
+    users: []

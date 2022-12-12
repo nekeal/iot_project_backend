@@ -21,7 +21,7 @@ ALLOWED_HOSTS = []
 # ------------- APPS -------------
 DJANGO_APPS = [
     "jazzmin",
-    "django.contrib.admin",
+    "iot.apps.CustomAdminConfig",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -75,6 +75,8 @@ TEMPLATES = [
 
 # ------------- PASSWORDS -------------
 AUTH_USER_MODEL = "accounts.CustomUser"
+LOGIN_URL = "boxes:welcome_page"
+LOGIN_REDIRECT_URL = "boxes:box_config"
 
 PASSOWRD_HASHERS = [
     "django.contrib.auth.hashers.PBKDF2PasswordHasher",
