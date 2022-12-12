@@ -2,8 +2,6 @@
 
 from django.db import migrations, models
 
-from iot.boxes.models import ColorChoices
-
 
 class Migration(migrations.Migration):
 
@@ -28,7 +26,13 @@ class Migration(migrations.Migration):
                 (
                     "color",
                     models.CharField(
-                        choices=ColorChoices.choices,
+                        choices=[
+                            ("red", "Red"),
+                            ("green", "Green"),
+                            ("blue", "Blue"),
+                            ("white", "White"),
+                            ("black", "Black"),
+                        ],
                         max_length=255,
                         verbose_name="Color",
                     ),
