@@ -50,8 +50,8 @@
                 <input name="password" type="password" />
             </label>
             {% csrf_token %}
-            <button type="button" class="forgot-pass">Nie pamiętasz hasła?</button>
-            <button type="submit" class="submit">Zaloguj się</button>
+            <button type="button" class="forgot-pass button-login">Nie pamiętasz hasła?</button>
+            <button type="submit" class="submit button-login">Zaloguj się</button>
         </div>
             </form>
         <div class="sub-cont">
@@ -83,7 +83,7 @@
                     <span>Powtórz hasło</span>
                     <input type="password" />
                 </label>
-                <button type="button" class="submit" href="{% url "boxes:main_page" %}">Załóż konto</button>
+                <button type="button" class="submit button-login" href="{% url "boxes:main_page" %}">Załóż konto</button>
                 
             </div>
         </div>
