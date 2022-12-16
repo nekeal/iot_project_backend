@@ -39,6 +39,7 @@ class Organizer(models.Model):
     column_b = models.JSONField(_("Column B"), default=dict, blank=True)
     column_c = models.JSONField(_("Column C"), default=dict, blank=True)
     column_d = models.JSONField(_("Column D"), default=dict, blank=True)
+    column_e = models.JSONField(_("Column E"), default=dict, blank=True)
 
     owner = models.ForeignKey(
         "accounts.CustomUser", on_delete=models.CASCADE, related_name="owned_boxes"

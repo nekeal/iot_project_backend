@@ -1,12 +1,20 @@
 import json
-from typing import Any, Dict, List
 from datetime import datetime
+from typing import Any, Dict, List
+
 from iot.boxes.models import TimeOfDay
 
 
 class BoxConfiguration(object):
-
-    def __init__(self, name: str, column: str, times: List[str], days: List[str], sound: str, light: str) -> None:
+    def __init__(
+        self,
+        name: str,
+        column: str,
+        times: List[str],
+        days: List[str],
+        sound: str,
+        light: str,
+    ) -> None:
         self.name = name
         self.column = column
         self.times = times
@@ -22,7 +30,7 @@ class BoxConfiguration(object):
 
     def get_times(self) -> List[str]:
         return self.times
-    
+
     def get_days(self) -> List[str]:
         return self.days
 
@@ -33,41 +41,39 @@ class BoxConfiguration(object):
         return self.light
 
     def parse_times(self) -> Dict[str, List[str]]:
-        
+
         clean_hours = []
         for h in self.get_times():
             try:
                 time_query = TimeOfDay.objects.get(name=h)
                 clean_hours.append(str(time_query.time))
             except TimeOfDay.DoesNotExist:
-                clean_hours.append('00:00')
-            
+                clean_hours.append("00:00")
+
         result = {}
         days = self.get_days()
-        if 'codziennie' in days:
-            result['poniedzialek'] = clean_hours
-            result['wtorek'] = clean_hours
-            result['sroda'] = clean_hours
-            result['czwartek'] = clean_hours
-            result['piatek'] = clean_hours
-            result['sobota'] = clean_hours
-            result['niedziela'] = clean_hours
-        else:   
+        if "codziennie" in days:
+            result["poniedzialek"] = clean_hours
+            result["wtorek"] = clean_hours
+            result["sroda"] = clean_hours
+            result["czwartek"] = clean_hours
+            result["piatek"] = clean_hours
+            result["sobota"] = clean_hours
+            result["niedziela"] = clean_hours
+        else:
             for d in days:
                 result[d] = clean_hours
 
         return result
 
     def generate_configuration(self) -> Dict[str, Any]:
-        print
-        result = {}
-        result['drugName'] = self.get_name()
-        result['column'] = self.get_column()
-        result['openTimes'] = self.parse_times()
-        result['light'] = 1 if self.get_light() == 'swiatlo' else 0
-        result['sound'] = 1 if self.get_sound() == 'dzwiek' else 0
-        result['timestamp'] = datetime.now().strftime("%m-%d-%Y, %H:%M:%S")
+        result = {
+            "drugName": self.get_name(),
+            "column": self.get_column(),
+            "openTimes": self.parse_times(),
+            "light": 1 if self.get_light() == "swiatlo" else 0,
+            "sound": 1 if self.get_sound() == "dzwiek" else 0,
+            "timestamp": datetime.now().strftime("%m-%d-%Y, %H:%M:%S"),
+        }
 
-        output_json = json.dumps(result)
-
-        return output_json
+        return result

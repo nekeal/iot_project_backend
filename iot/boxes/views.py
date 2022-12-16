@@ -13,8 +13,8 @@ from rest_framework.generics import CreateAPIView, get_object_or_404
 from iot.accounts.models import CustomUser
 from iot.boxes.client import BoxMqttClient
 from iot.boxes.forms import PublishMessageForm
-from iot.boxes.models import Organizer, TimeOfDay
 from iot.boxes.message_parser import BoxConfiguration
+from iot.boxes.models import Organizer, TimeOfDay
 
 
 class PublishMessageFormView(FormView):
@@ -56,20 +56,20 @@ class BoxConfigView(LoginRequiredMixin, TemplateView):
 
     def post(self, request, *args, **kwargs):
         url = str(request.path)
-        box_id = url.split('/')[-2]
-        column_id = url.split('/')[-1]
+        box_id = url.split("/")[-2]
+        column_id = url.split("/")[-1]
         med = BoxConfiguration(
             name=request.POST.get("medicineName", ""),
             column=column_id,
             times=request.POST.getlist("times", []),
             days=request.POST.getlist("days", []),
             sound=request.POST.get("sound", ""),
-            light=request.POST.get("light", "")
+            light=request.POST.get("light", ""),
         )
-        configuration = med.generate_configuration()
-
-        topic_name = "update/" + box_id
-        BoxMqttClient().publish(topic_name, configuration)
+        configuration_dict = med.generate_configuration()
+        Organizer.objects.filter(id=int(box_id)).update(**{f"column_{column_id}": configuration_dict})
+        topic_name = f"update/{box_id}"
+        BoxMqttClient().publish(topic_name, json.dumps(configuration_dict))
 
         messages.success(
             request, f"Konfiguracja kolumny '{column_id}' została zarejestrowana"
