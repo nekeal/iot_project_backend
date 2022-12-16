@@ -133,6 +133,7 @@
             <div id="o{{ organizer.id }}{{ i }}" class="tabcontent">
                 <div class="container-xxl py-5">
                     <form id="form1a" method="post" action="{% url "boxes:box_config" %}{{ organizer.id }}/{{ i }}">
+                        {% csrf_token %}
                         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                             <h1 class="mb-5" style="font-size: 20px;">Konfigurujesz kolumnę {{ i | capfirst }}</h1>
                         </div>
@@ -216,7 +217,6 @@
                                 </select>
                             </div>
                         </div><br>
-                        {% csrf_token %}
                     </form>
                 </div>
             </div>  
