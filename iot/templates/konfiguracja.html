@@ -121,7 +121,51 @@
                                     <br>
                                     <!--<p>Aktualnie wybrany lek: </p>
                                     <a href="" class="btn btn-primary py-1 px-1">Wyczyść konfigurację</a> -->
+                                    {% if i == "a" %}
+                                    {% for key, value in organizer.column_a.items %}
+                                    {% if key == "drugName" %}
+                                    <p>Aktualnie wybrany lek: {{ value }}</p>
+                                    {% endif %}
+                                    {% endfor %}
                                     <p>Kliknij nazwę kolumny, aby przejść do jej konfiguracji</p>
+                                    {% endif %}
+
+                                    {% if i == "b" %}
+                                    {% for key, value in organizer.column_b.items %}
+                                    {% if key == "drugName" %}
+                                    <p>Aktualnie wybrany lek: {{ value }}</p>
+                                    {% endif %}
+                                    {% endfor %}
+                                    <p>Kliknij nazwę kolumny, aby przejść do jej konfiguracji</p>
+                                    {% endif %}
+
+                                    {% if i == "c" %}
+                                    {% for key, value in organizer.column_c.items %}
+                                    {% if key == "drugName" %}
+                                    <p>Aktualnie wybrany lek: {{ value }}</p>
+                                    {% endif %}
+                                    {% endfor %}
+                                    <p>Kliknij nazwę kolumny, aby przejść do jej konfiguracji</p>
+                                    {% endif %}
+
+                                    {% if i == "d" %}
+                                    {% for key, value in organizer.column_d.items %}
+                                    {% if key == "drugName" %}
+                                    <p>Aktualnie wybrany lek: {{ value }}</p>
+                                    {% endif %}
+                                    {% endfor %}
+                                    <p>Kliknij nazwę kolumny, aby przejść do jej konfiguracji</p>
+                                    {% endif %}
+
+                                    {% if i == "e" %}
+                                    {% for key, value in organizer.column_e.items %}
+                                    {% if key == "drugName" %}
+                                    <p>Aktualnie wybrany lek: {{ value }}</p>
+                                    {% endif %}
+                                    {% endfor %}
+                                    <p>Kliknij nazwę kolumny, aby przejść do jej konfiguracji</p>
+                                    {% endif %}
+                                    
                                 </div>
                             </div>
                         </div>
