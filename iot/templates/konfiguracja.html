@@ -108,9 +108,9 @@
                     <div class="row g-4">
                         <div class="col-lg-1">
                             <br><br><br><br>
-                            <!--<p style="font-size: 9px;">Jeśli chcesz usunąć organizer z profilu, kliknij poniższy przycisk
+                            <p style="font-size: 9px;">Jeśli chcesz usunąć organizer z profilu, kliknij poniższy przycisk
                             </p> <br><br>
-                            <a href="" class="btn btn-secondary py-1 px-1" style="font-size: 7px;">Usuń organizer</a>-->
+                            <button type="button" class="btn btn-secondary py-1 px-1" style="font-size: 7px;" data-bs-toggle="modal" data-bs-target="#modalUsun{{ organizer.id }}">Usuń organizer</button>
                         </div>
                         {% for i in 'abcde' %}
                         <div class="col-lg-2 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -221,6 +221,30 @@
             </div>  
             {% endfor %}      
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="modalUsun{{ organizer.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div class="container text-end mb-2">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="container text-center mb-4">
+                    <h5 class="modal-title" id="exampleModalLabel">Czy na pewno chcesz usunąć organizer "{{ organizer.name }}"?</h5>
+                  </div>
+                  <div class="container text-center">
+                    <!-- akcja na tak -->
+                    <form method="post" action="{% url "boxes:box_config" %}">
+                      {% csrf_token %}
+                      <input type="hidden" value="{{ organizer.id }}" name="delete">
+                      <button type="submit" class="btn btn-secondary col-sm-3 me-4" href="{% url "boxes:box_config" %}"">Tak</button>
+                      <button type="button" class="btn btn-primary col-sm-3 ms-4" data-bs-dismiss="modal">Nie</button>
+                  </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         {% endfor %}
     </div>
     

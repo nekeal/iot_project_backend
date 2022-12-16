@@ -55,26 +55,34 @@ class BoxConfigView(LoginRequiredMixin, TemplateView):
         }
 
     def post(self, request, *args, **kwargs):
-        url = str(request.path)
-        box_id = url.split("/")[-2]
-        column_id = url.split("/")[-1]
-        med = BoxConfiguration(
-            name=request.POST.get("medicineName", ""),
-            column=column_id,
-            times=request.POST.getlist("times", []),
-            days=request.POST.getlist("days", []),
-            sound=request.POST.get("sound", ""),
-            light=request.POST.get("light", ""),
-        )
-        configuration_dict = med.generate_configuration()
-        Organizer.objects.filter(id=int(box_id)).update(**{f"column_{column_id}": configuration_dict})
-        topic_name = f"update/{box_id}"
-        BoxMqttClient().publish(topic_name, json.dumps(configuration_dict))
+        if "medicineName" in request.POST:
+            url = str(request.path)
+            box_id = url.split('/')[-2]
+            column_id = url.split('/')[-1]
+            med = BoxConfiguration(
+                name=request.POST.get("medicineName", ""),
+                column=column_id,
+                times=request.POST.getlist("times", []),
+                days=request.POST.getlist("days", []),
+                sound=request.POST.get("sound", ""),
+                light=request.POST.get("light", "")
+            )
+            configuration_dict = med.generate_configuration()
+            Organizer.objects.filter(id=int(box_id)).update(**{f"column_{column_id}": configuration_dict})
+            topic_name = f"update/{box_id}"
+            BoxMqttClient().publish(topic_name, json.dumps(configuration_dict))
 
-        messages.success(
-            request, f"Konfiguracja kolumny '{column_id}' została zarejestrowana"
-        )
-        return redirect("boxes:box_config")
+            messages.success(
+                request, f"Konfiguracja kolumny '{column_id}' została zarejestrowana"
+            )
+            return redirect("boxes:box_config")
+        if "delete" in request.POST:
+            organizer = Organizer.objects.get(id=request.POST["delete"])
+            organizer.delete()
+            messages.success(
+                request, f"Organizer został usunięty"
+            )
+            return redirect("boxes:box_config")
 
 
 class TimeOfDayView(LoginRequiredMixin, ListView):
@@ -82,7 +90,6 @@ class TimeOfDayView(LoginRequiredMixin, ListView):
     queryset = TimeOfDay.objects.all().order_by('time').values()
     
     def post(self, request, *args, **kwargs):
-        print(request.POST)
         if "name" in request.POST:
             TimeOfDay.objects.create(
                 name=request.POST["name"],
