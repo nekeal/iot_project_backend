@@ -189,7 +189,13 @@
                                 <b>Nazwa leku</b>
                             </div>
                             <div class="col-lg-3">
-                                <input type="text" name="medicineName">
+                                <input type="text" name="medicineName" 
+                                    {% if i == "a" and organizer.column_a.drugName %}value={{organizer.column_a.drugName}}
+                                    {% elif i == "b" and organizer.column_b.drugName %}value={{organizer.column_b.drugName}}
+                                    {% elif i == "c" and organizer.column_c.drugName %}value={{organizer.column_c.drugName}}
+                                    {% elif i == "d" and organizer.column_d.drugName %}value={{organizer.column_d.drugName}}
+                                    {% elif i == "e" and organizer.column_e.drugName %}value={{organizer.column_e.drugName}}
+                                    {% endif %}>
                             </div>
                         </div><br>
                         <div class="row g-4">
@@ -290,6 +296,21 @@
               </div>
             </div>
           </div>
+        {% empty %}
+        <div class="container-xxl px-5">
+        <div class="row justify-content-center">
+        <div class="col-lg-6 col-sm-6 wow fadeInUp text-center" data-wow-delay="0.1s">
+            <h4 class="mb-4">Nie dodano jeszcze żadnego ogranizera</h4>
+            <div class="service-item rounded pt-3">
+                <div class="p-4">
+                    <i class="fa fa-3x fa-user-plus text-primary mb-4"></i>
+                        <a class="btn btn-link block" href="{% url "boxes:add_organizer" %}">Dodaj nowy organizer</a>
+                    <h5></h5>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
         {% endfor %}
     </div>
     
