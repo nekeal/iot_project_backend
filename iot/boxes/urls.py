@@ -8,6 +8,7 @@ from iot.boxes.views import (
     MainPageView,
     ProfileView,
     PublishMessageFormView,
+    GetMessageFormView,
     RegisterOrganizerView,
     ShareProfileView,
     TimeOfDayView,
@@ -19,6 +20,7 @@ app_name = "boxes"
 urlpatterns: List[Any] = [
     path("", MainPageView.as_view(), name="main_page"),
     path("messages/publish/", PublishMessageFormView.as_view(), name="publish_message"),
+    path("messages/list/", GetMessageFormView.as_view(), name="list_message"),
     re_path(r"konfiguracja/.*", BoxConfigView.as_view(), name="box_config"),
     path("dodaj-organizer/", AddOrganizerView.as_view(), name="add_organizer"),
     path("pory/", TimeOfDayView.as_view(), name="time_of_day"),

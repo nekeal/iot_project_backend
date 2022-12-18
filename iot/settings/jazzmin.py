@@ -12,5 +12,6 @@ JAZZMIN_SETTINGS = {
     "topmenu_links": [
         # Url that gets reversed (Permissions can be added)
         {"name": "Publish message to the queue", "url": "boxes:publish_message"},
+        {"name": "List messages on topic", "url": "boxes:list_message"},
     ],
 }
