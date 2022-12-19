@@ -48,7 +48,7 @@ class BoxConfiguration(object):
                 time_query = TimeOfDay.objects.get(name=h)
                 clean_hours.append(str(time_query.time))
             except TimeOfDay.DoesNotExist:
-                clean_hours.append("00:00")
+                clean_hours.append("00:00:00")
 
         result = {}
         days = self.get_days()

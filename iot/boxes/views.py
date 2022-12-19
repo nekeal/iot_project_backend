@@ -10,11 +10,11 @@ from django.shortcuts import redirect
 from django.views.generic import FormView, ListView, TemplateView
 from rest_framework.generics import CreateAPIView, get_object_or_404
 
-from iot.accounts.models import CustomUser
+from iot.accounts.models import CustomUser 
 from iot.boxes.client import BoxMqttClient
-from iot.boxes.forms import PublishMessageForm
+from iot.boxes.forms import PublishMessageForm, GetMessageForm
 from iot.boxes.message_parser import BoxConfiguration
-from iot.boxes.models import Organizer, TimeOfDay
+from iot.boxes.models import Organizer, TimeOfDay, TopicMessages
 
 
 class PublishMessageFormView(FormView):
@@ -39,6 +39,34 @@ class PublishMessageFormView(FormView):
             BoxMqttClient().publish(
                 form.cleaned_data["topic"], json.dumps(form.cleaned_data["message"])
             )
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+
+class GetMessageFormView(FormView):
+    form_class = GetMessageForm
+
+    template_name = "listen_message.html"
+    query_result = []
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return {
+            **context,
+            **admin_site.each_context(self.request),
+            "media": self.form_class().media,
+            "response": [ "date: {}, message: {}".format(result.fetch_date, result.message) for result in self.query_result ],
+        }
+
+    def form_valid(self, form):
+        messages.success(self.request, "Data loaded sucesfully")
+        return self.get(self.request)
+
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        form = self.get_form()
+        if form.is_valid():
+            self.query_result = TopicMessages.objects.filter(topic=form.cleaned_data["topic"]).order_by("-fetch_date")
             return self.form_valid(form)
         else:
             return self.form_invalid(form)

@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from datetime import date
 
 
 class ColorChoices(models.TextChoices):
@@ -50,3 +51,9 @@ class Organizer(models.Model):
 
     def __str__(self):
         return self.name
+
+class TopicMessages(models.Model):
+    qos = models.IntegerField()
+    topic = models.TextField()
+    fetch_date = models.DateField(default=date.today)
+    message = models.TextField()
