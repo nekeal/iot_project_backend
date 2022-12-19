@@ -23,8 +23,7 @@ class BoxMqttClient:
     def __init__(self):
         self._auth = {
             "username": "IoT_2022_drug_dealer",
-            "password": "8b70ty34ft2inuhdafbvjhsafg)*&^TFU&^*(_UV$^%^$%_)($%!(*@#KUGAFVD872134509yfsd"
-            # "password": os.environ["HIVEMQ_PASSWORD"],
+            "password": os.environ["HIVEMQ_PASSWORD"],
         }
         self._connection_data = {
             "hostname": "4e2bde16ffff46d9a8f341015b213f81.s2.eu.hivemq.cloud",
