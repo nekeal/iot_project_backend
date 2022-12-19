@@ -42,14 +42,11 @@
                     <span class="fa fa-bars"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-					<div class="navbar-nav ms-auto py=2 px=3>
-						<label for="inputState" class="form-label">Wybrany profil uzytkownika</label>
-                        <select id="inputState" class="form-select">
-                          <option selected>Mój profil</option>
-                          <option>Profil udostępniony 1</option>
-						  <option>Profil udostępniony 2</option>
-                        </select>
-					</div>
+                    <div class="navbar-nav ms-auto py=2 px=3">
+                        <br>
+                        <b>Aktualnie zalogowany użytkownik: &ensp; </b>
+                        <p >{{ request.user }}</p>
+                    </div>
 					<div class="navbar-nav ms-auto py-0 pe-4">
                         <a href="{% url "boxes:main_page" %}" class="nav-item nav-link">Strona główna</a>
                         <a href="{% url "boxes:box_config" %}" class="nav-item nav-link active">Organizer</a>
@@ -84,11 +81,11 @@
             {% for organizer in organizers %}
             {% if forloop.counter == 1 %}
             <li class="nav-item" role="presentation">
-				<button class="nav-link active" id="{{ organizer.serial_number }}-tab" data-bs-toggle="pill" data-bs-target="#{{ organizer.serial_number }}" type="button" role="tab" aria-controls="{{ organizer.serial_number }}" aria-selected="true">{{ organizer.name}} {% if organizer.owner != request.user %}( {{ organizer.owner }} ){% endif %}</button>
+				<button class="nav-link active" id="id_{{ organizer.serial_number }}-tab" data-bs-toggle="pill" data-bs-target="#id_{{ organizer.serial_number }}" type="button" role="tab" aria-controls="id_{{ organizer.serial_number }}" aria-selected="true">{{ organizer.name}} {% if organizer.owner != request.user %}( {{ organizer.owner }} ){% endif %}</button>
 			</li>
             {% else %}
             <li class="nav-item" role="presentation">
-				<button class="nav-link" id="{{ organizer.serial_number }}-tab" data-bs-toggle="pill" data-bs-target="#{{ organizer.serial_number }}" type="button" role="tab" aria-controls="{{ organizer.serial_number }}" aria-selected="false">{{ organizer.name}} {% if organizer.owner != request.user %}( {{ organizer.owner }} ){% endif %}</button>
+				<button class="nav-link" id="id_{{ organizer.serial_number }}-tab" data-bs-toggle="pill" data-bs-target="#id_{{ organizer.serial_number }}" type="button" role="tab" aria-controls="id_{{ organizer.serial_number }}" aria-selected="false">{{ organizer.name}} {% if organizer.owner != request.user %}( {{ organizer.owner }} ){% endif %}</button>
 			</li>
             {% endif %}
             {% endfor %}
@@ -98,509 +95,91 @@
     <div class="tab-content" id="pills-tabContent">
         {% for organizer in organizers %}
         {% if forloop.counter == 1 %}
-        <div class="tab-pane fade show active" id="{{ organizer.serial_number }}" role="tabpanel" aria-labelledby="{{ organizer.serial_number }}-tab">
-            <div class="container-xxl py-5">
-                <br>
-                <div class="container">
-                    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                        <h1 class="mb-5">Skonfiguruj {{ organizer.name }}</h1>
-                    </div>
-                    <div class="row g-4">
-                        <div class="col-lg-1">
-                            <br><br><br><br>
-                            <p style="font-size: 9px;">Jeśli chcesz usunąć organizer z profilu, kliknij poniższy przycisk
-                            </p> <br><br>
-                            <a href="" class="btn btn-secondary py-1 px-1" style="font-size: 7px;">Usuń organizer</a>
-    
-                        </div>
-                        <div class="col-lg-2 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                            <div class="service-item rounded pt-3">
-                                <div class="p-4" style="text-align:center"><br><br>
-                                    <i class="fa fa-3x text-primary mb-4"></i>
-                                    <a class="btn btn-link tablinks" onclick="openCity(event, 'o{{ organizer.id }}a');">Kolumna A</a>
-                                    <br>
-                                    <p>Aktualnie wybrany lek: </p>
-                                    <!--<a href="" class="btn btn-primary py-1 px-1">Wyczyść konfigurację</a> -->
-                                    <p>Brak</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                            <div class="service-item rounded pt-3">
-                                <div class="p-4" style="text-align:center"><br><br>
-                                    <i class="fa fa-3x text-primary mb-4"></i>
-                                    <a class="btn btn-link tablinks" onclick="openCity(event, 'o{{ organizer.id }}b');">Kolumna B</a>
-                                    <br>
-                                    <p>Aktualnie wybrany lek: </p>
-                                    <p>Lek Y</p>
-    
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                            <div class="service-item rounded pt-3">
-                                <div class="p-4" style="text-align:center"><br><br>
-                                    <i class="fa fa-3x text-primary mb-4"></i>
-                                    <a class="btn btn-link" onclick="openCity(event, 'o{{ organizer.id }}c');">Kolumna C</a>
-                                    <br>
-                                    <p>Aktualnie wybrany lek: </p>
-                                    <p>Brak</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                            <div class="service-item rounded pt-3">
-                                <div class="p-4" style="text-align:center"><br><br>
-                                    <i class="fa fa-3x text-primary mb-4"></i>
-                                    <a class="btn btn-link" onclick="openCity(event, 'o{{ organizer.id }}d');">Kolumna D</a>
-                                    <br>
-                                    <p>Aktualnie wybrany lek: </p>
-                                    <p>Lek X</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    
-            </div>
-            <div id="o{{ organizer.id }}a" class="tabcontent">
-                <div class="container-xxl py-5">
-                    <form id="form1a" method="post" action="{% url "boxes:box_config" %}{{ organizer.id }}/a">
-                        {% csrf_token %}
-                        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                            <h1 class="mb-5" style="font-size: 20px;">Konfigurujesz kolumnę A</h1>
-                        </div>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Nazwa leku</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <input type="text" name="medicineName">
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Pory zażywania </b>
-                            </div>
-                            <div class="col-lg-2">
-                                <input type="checkbox" name="times" value="Rano">Rano<br>
-                                <input type="checkbox" name="times" value="Poludnie"> Południe<br>
-                                <input type="checkbox" name="times" value="Wieczorem"> Wieczorem<br>
-                            </div>
-                            <div class="text-center col-lg-4">
-                                Domyślne pory zażywania leków to 8:00 (rano), 12:00 (południe) oraz 18:00 (wieczór). Jeśli
-                                chcesz je zmienić lub dodać inne pory, przejdź do zakładki Pory zażywania.
-                                <a href="" class="btn btn-secondary py-1 px-1">Przejdź do Pory zażywania</a>
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Dni zażywania</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <select id="days" multiple name="days">
-                                    <option value="codziennie">Codziennie</option>
-                                    <option value="poniedzialek">Poniedziałek</option>
-                                    <option value="wtorek">Wtorek</option>
-                                    <option value="sroda">Środa</option>
-                                    <option value="czwartek">Czwartek</option>
-                                    <option value="piatek">Piątek</option>
-                                    <option value="sobota">Sobota</option>
-                                    <option value="niedziela">Niedziela</option>
-                                </select>
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Alarm dźwiękowy</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <select name="sound">
-                                    <option value="">---</option>
-                                    <option value="dzwiek">Tak</option>
-                                    <option value="bezdzwiek">Nie</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-2">
-                                <button type="submit" class="btn btn-primary py-1 px-1">Zapisz konfigurację</button>
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Alarm świetlny</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <select name="light">
-                                    <option value="">---</option>
-                                    <option value="swiatlo">Tak</option>
-                                    <option value="bezswiatla">Nie</option>
-                                </select>
-                            </div>
-                        </div><br>
-                    </form>
-                </div>
-            </div>
-            <div id="o{{ organizer.id }}b" class="tabcontent">
-                <div class="container-xxl py-5">
-                    <form id="form1a" method="post" action="{% url "boxes:box_config" %}{{ organizer.id }}/b">
-                        {% csrf_token %}
-                        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                            <h1 class="mb-5" style="font-size: 20px;">Konfigurujesz kolumnę B</h1>
-                        </div>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Nazwa leku</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <input type="text" name="medicineName">
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Pory zażywania </b>
-                            </div>
-                            <div class="col-lg-2">
-                                <input type="checkbox" name="times" value="Rano">Rano<br>
-                                <input type="checkbox" name="times" value="Poludnie"> Południe<br>
-                                <input type="checkbox" name="times" value="Wieczorem"> Wieczorem<br>
-                            </div>
-                            <div class="text-center col-lg-4">
-                                Domyślne pory zażywania leków to 8:00 (rano), 12:00 (południe) oraz 18:00 (wieczór). Jeśli
-                                chcesz je zmienić lub dodać inne pory, przejdź do zakładki Pory zażywania.
-                                <a href="" class="btn btn-secondary py-1 px-1">Przejdź do Pory zażywania</a>
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Dni zażywania</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <select id="days" multiple name="days">
-                                    <option value="codziennie">Codziennie</option>
-                                    <option value="poniedzialek">Poniedziałek</option>
-                                    <option value="wtorek">Wtorek</option>
-                                    <option value="sroda">Środa</option>
-                                    <option value="czwartek">Czwartek</option>
-                                    <option value="piatek">Piątek</option>
-                                    <option value="sobota">Sobota</option>
-                                    <option value="niedziela">Niedziela</option>
-                                </select>
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Alarm dźwiękowy</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <select name="sound">
-                                    <option value="">---</option>
-                                    <option value="dzwiek">Tak</option>
-                                    <option value="bezdzwiek">Nie</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-2">
-                                <button type="submit" class="btn btn-primary py-1 px-1">Zapisz konfigurację</button>
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Alarm świetlny</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <select name="light">
-                                    <option value="">---</option>
-                                    <option value="swiatlo">Tak</option>
-                                    <option value="bezswiatla">Nie</option>
-                                </select>
-                            </div>
-                        </div><br>
-                    </form>
-                </div>
-            </div>
-            <div id="o{{ organizer.id }}c" class="tabcontent">
-                <div class="container-xxl py-5">
-                    <form id="form1a" method="post" action="{% url "boxes:box_config" %}{{ organizer.id }}/c">
-                        {% csrf_token %}
-                        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                            <h1 class="mb-5" style="font-size: 20px;">Konfigurujesz kolumnę C</h1>
-                        </div>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Nazwa leku</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <input type="text" name="medicineName">
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Pory zażywania </b>
-                            </div>
-                            <div class="col-lg-2">
-                                <input type="checkbox" name="times" value="Rano">Rano<br>
-                                <input type="checkbox" name="times" value="Poludnie"> Południe<br>
-                                <input type="checkbox" name="times" value="Wieczorem"> Wieczorem<br>
-                            </div>
-                            <div class="text-center col-lg-4">
-                                Domyślne pory zażywania leków to 8:00 (rano), 12:00 (południe) oraz 18:00 (wieczór). Jeśli
-                                chcesz je zmienić lub dodać inne pory, przejdź do zakładki Pory zażywania.
-                                <a href="" class="btn btn-secondary py-1 px-1">Przejdź do Pory zażywania</a>
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Dni zażywania</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <select id="days" multiple name="days">
-                                    <option value="codziennie">Codziennie</option>
-                                    <option value="poniedzialek">Poniedziałek</option>
-                                    <option value="wtorek">Wtorek</option>
-                                    <option value="sroda">Środa</option>
-                                    <option value="czwartek">Czwartek</option>
-                                    <option value="piatek">Piątek</option>
-                                    <option value="sobota">Sobota</option>
-                                    <option value="niedziela">Niedziela</option>
-                                </select>
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Alarm dźwiękowy</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <select name="sound">
-                                    <option value="">---</option>
-                                    <option value="dzwiek">Tak</option>
-                                    <option value="bezdzwiek">Nie</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-2">
-                                <button type="submit" class="btn btn-primary py-1 px-1">Zapisz konfigurację</button>
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Alarm świetlny</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <select name="light">
-                                    <option value="">---</option>
-                                    <option value="swiatlo">Tak</option>
-                                    <option value="bezswiatla">Nie</option>
-                                </select>
-                            </div>
-                        </div><br>
-                    </form>
-                </div>
-            </div>
-            <div id="o{{ organizer.id }}d" class="tabcontent">
-                <div class="container-xxl py-5">
-                    <form id="form1a" method="post" action="{% url "boxes:box_config" %}{{ organizer.id }}/d">
-                        {% csrf_token %}
-                        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                            <h1 class="mb-5" style="font-size: 20px;">Konfigurujesz kolumnę D</h1>
-                        </div>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Nazwa leku</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <input type="text" name="medicineName">
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Pory zażywania </b>
-                            </div>
-                            <div class="col-lg-2">
-                                <input type="checkbox" name="times" value="Rano">Rano<br>
-                                <input type="checkbox" name="times" value="Poludnie"> Południe<br>
-                                <input type="checkbox" name="times" value="Wieczorem"> Wieczorem<br>
-                            </div>
-                            <div class="text-center col-lg-4">
-                                Domyślne pory zażywania leków to 8:00 (rano), 12:00 (południe) oraz 18:00 (wieczór). Jeśli
-                                chcesz je zmienić lub dodać inne pory, przejdź do zakładki Pory zażywania.
-                                <a href="" class="btn btn-secondary py-1 px-1">Przejdź do Pory zażywania</a>
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Dni zażywania</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <select id="days" multiple name="days">
-                                    <option value="codziennie">Codziennie</option>
-                                    <option value="poniedzialek">Poniedziałek</option>
-                                    <option value="wtorek">Wtorek</option>
-                                    <option value="sroda">Środa</option>
-                                    <option value="czwartek">Czwartek</option>
-                                    <option value="piatek">Piątek</option>
-                                    <option value="sobota">Sobota</option>
-                                    <option value="niedziela">Niedziela</option>
-                                </select>
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Alarm dźwiękowy</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <select name="sound">
-                                    <option value="">---</option>
-                                    <option value="dzwiek">Tak</option>
-                                    <option value="bezdzwiek">Nie</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-2">
-                                <button type="submit" class="btn btn-primary py-1 px-1">Zapisz konfigurację</button>
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Alarm świetlny</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <select name="light">
-                                    <option value="">---</option>
-                                    <option value="swiatlo">Tak</option>
-                                    <option value="bezswiatla">Nie</option>
-                                </select>
-                            </div>
-                        </div><br>
-                    </form>
-                </div>
-            </div>
-            
-        </div>
+        <div class="tab-pane fade show active" id="id_{{ organizer.serial_number }}" role="tabpanel" aria-labelledby="id_{{ organizer.serial_number }}-tab">
         {% else %}
-        <div class="tab-pane fade" id="{{ organizer.serial_number }}" role="tabpanel" aria-labelledby="{{ organizer.serial_number }}-tab">
+        <div class="tab-pane fade" id="id_{{ organizer.serial_number }}" role="tabpanel" aria-labelledby="id_{{ organizer.serial_number }}-tab">
+        {% endif %}
             <div class="container-xxl py-5">
                 <br>
                 <div class="container">
                     <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                        <h1 class="mb-5">Skonfiguruj {{organizer.name}}</h1>
+                        <h1 class="mb-5">Skonfiguruj {{ organizer.name }} {% if organizer.owner != request.user %}( {{ organizer.owner }} ){% endif %}</h1>
                     </div>
                     <div class="row g-4">
                         <div class="col-lg-1">
                             <br><br><br><br>
                             <p style="font-size: 9px;">Jeśli chcesz usunąć organizer z profilu, kliknij poniższy przycisk
                             </p> <br><br>
-                            <a href="" class="btn btn-secondary py-1 px-1" style="font-size: 7px;">Usuń organizer</a>
-    
+                            <button type="button" class="btn btn-secondary py-1 px-1" style="font-size: 7px;" data-bs-toggle="modal" data-bs-target="#modalUsun{{ organizer.id }}">Usuń organizer</button>
                         </div>
+                        {% for i in 'abcde' %}
                         <div class="col-lg-2 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
                             <div class="service-item rounded pt-3">
                                 <div class="p-4" style="text-align:center"><br><br>
                                     <i class="fa fa-3x text-primary mb-4"></i>
-                                    <a class="btn btn-link tablinks" onclick="openCity(event, 'o{{ organizer.id }}a');">Kolumna A</a>
+                                    <a class="btn btn-link tablinks" onclick="openCity(event, 'o{{ organizer.id }}{{ i }}');">Kolumna {{ i | capfirst }}</a>
                                     <br>
-                                    <p>Aktualnie wybrany lek: </p>
-                                    <!--<a href="" class="btn btn-primary py-1 px-1">Wyczyść konfigurację</a> -->
-                                    <p>Brak</p>
+                                    <!--<p>Aktualnie wybrany lek: </p>
+                                    <a href="" class="btn btn-primary py-1 px-1">Wyczyść konfigurację</a> -->
+                                    {% if i == "a" %}
+                                    {% for key, value in organizer.column_a.items %}
+                                    {% if key == "drugName" %}
+                                    <p>Aktualnie wybrany lek: {{ value }}</p>
+                                    {% endif %}
+                                    {% endfor %}
+                                    <p>Kliknij nazwę kolumny, aby przejść do jej konfiguracji</p>
+                                    {% endif %}
+
+                                    {% if i == "b" %}
+                                    {% for key, value in organizer.column_b.items %}
+                                    {% if key == "drugName" %}
+                                    <p>Aktualnie wybrany lek: {{ value }}</p>
+                                    {% endif %}
+                                    {% endfor %}
+                                    <p>Kliknij nazwę kolumny, aby przejść do jej konfiguracji</p>
+                                    {% endif %}
+
+                                    {% if i == "c" %}
+                                    {% for key, value in organizer.column_c.items %}
+                                    {% if key == "drugName" %}
+                                    <p>Aktualnie wybrany lek: {{ value }}</p>
+                                    {% endif %}
+                                    {% endfor %}
+                                    <p>Kliknij nazwę kolumny, aby przejść do jej konfiguracji</p>
+                                    {% endif %}
+
+                                    {% if i == "d" %}
+                                    {% for key, value in organizer.column_d.items %}
+                                    {% if key == "drugName" %}
+                                    <p>Aktualnie wybrany lek: {{ value }}</p>
+                                    {% endif %}
+                                    {% endfor %}
+                                    <p>Kliknij nazwę kolumny, aby przejść do jej konfiguracji</p>
+                                    {% endif %}
+
+                                    {% if i == "e" %}
+                                    {% for key, value in organizer.column_e.items %}
+                                    {% if key == "drugName" %}
+                                    <p>Aktualnie wybrany lek: {{ value }}</p>
+                                    {% endif %}
+                                    {% endfor %}
+                                    <p>Kliknij nazwę kolumny, aby przejść do jej konfiguracji</p>
+                                    {% endif %}
+                                    
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                            <div class="service-item rounded pt-3">
-                                <div class="p-4" style="text-align:center"><br><br>
-                                    <i class="fa fa-3x text-primary mb-4"></i>
-                                    <a class="btn btn-link tablinks" onclick="openCity(event, 'o{{ organizer.id }}b');">Kolumna B</a>
-                                    <br>
-                                    <p>Aktualnie wybrany lek: </p>
-                                    <p>Lek Y</p>
-    
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                            <div class="service-item rounded pt-3">
-                                <div class="p-4" style="text-align:center"><br><br>
-                                    <i class="fa fa-3x text-primary mb-4"></i>
-                                    <a class="btn btn-link" onclick="openCity(event, 'o{{ organizer.id }}c');">Kolumna C</a>
-                                    <br>
-                                    <p>Aktualnie wybrany lek: </p>
-                                    <p>Brak</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                            <div class="service-item rounded pt-3">
-                                <div class="p-4" style="text-align:center"><br><br>
-                                    <i class="fa fa-3x text-primary mb-4"></i>
-                                    <a class="btn btn-link" onclick="openCity(event, 'o{{ organizer.id }}d');">Kolumna D</a>
-                                    <br>
-                                    <p>Aktualnie wybrany lek: </p>
-                                    <p>Lek X</p>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
-    
             </div>
-            <div id="o{{ organizer.id }}a" class="tabcontent">
+            {% for i in 'abcde' %}
+            <div id="o{{ organizer.id }}{{ i }}" class="tabcontent">
                 <div class="container-xxl py-5">
-                    <form id="form1a" method="post" action="{% url "boxes:box_config" %}{{ organizer.id }}/a">
+                    <form id="form1a" method="post" action="{% url "boxes:box_config" %}{{ organizer.id }}/{{ i }}">
                         {% csrf_token %}
                         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                            <h1 class="mb-5" style="font-size: 20px;">Konfigurujesz kolumnę A</h1>
+                            <h1 class="mb-5" style="font-size: 20px;">Konfigurujesz kolumnę {{ i | capfirst }}</h1>
                         </div>
                         <div class="row g-4">
                             <div class="col-lg-2">
@@ -610,7 +189,13 @@
                                 <b>Nazwa leku</b>
                             </div>
                             <div class="col-lg-3">
-                                <input type="text" name="medicineName">
+                                <input type="text" name="medicineName" 
+                                    {% if i == "a" and organizer.column_a.drugName %}value={{organizer.column_a.drugName}}
+                                    {% elif i == "b" and organizer.column_b.drugName %}value={{organizer.column_b.drugName}}
+                                    {% elif i == "c" and organizer.column_c.drugName %}value={{organizer.column_c.drugName}}
+                                    {% elif i == "d" and organizer.column_d.drugName %}value={{organizer.column_d.drugName}}
+                                    {% elif i == "e" and organizer.column_e.drugName %}value={{organizer.column_e.drugName}}
+                                    {% endif %}>
                             </div>
                         </div><br>
                         <div class="row g-4">
@@ -619,15 +204,14 @@
                             <div class="col-lg-3">
                                 <b>Pory zażywania </b>
                             </div>
-                            <div class="col-lg-2">
-                                <input type="checkbox" name="times" value="Rano">Rano<br>
-                                <input type="checkbox" name="times" value="Poludnie"> Południe<br>
-                                <input type="checkbox" name="times" value="Wieczorem"> Wieczorem<br>
+                            <div class="col-lg-3">
+                                {% for time in times_of_day %}
+                                    <input type="checkbox" name="times" value="{{ time.name }}">{{ time.name }} ({{ time.time | time:"H:i" }})<br>
+                                {% endfor %}
                             </div>
                             <div class="text-center col-lg-4">
-                                Domyślne pory zażywania leków to 8:00 (rano), 12:00 (południe) oraz 18:00 (wieczór). Jeśli
-                                chcesz je zmienić lub dodać inne pory, przejdź do zakładki Pory zażywania.
-                                <a href="" class="btn btn-secondary py-1 px-1">Przejdź do Pory zażywania</a>
+                                Jeśli chcesz zmienić pory zażywania leków lub dodać nowe, przejdź do zakładki Pory zażywania.
+                                <a href="{% url "boxes:time_of_day" %}" class="btn btn-secondary py-1 px-1">Przejdź do Pory zażywania</a>
                             </div>
                         </div><br>
                         <div class="row g-4">
@@ -685,282 +269,48 @@
                         </div><br>
                     </form>
                 </div>
-            </div>
-            <div id="o{{ organizer.id }}b" class="tabcontent">
-                <div class="container-xxl py-5">
-                    <form id="form1a" method="post" action="{% url "boxes:box_config" %}{{ organizer.id }}/b">
-                        {% csrf_token %}
-                        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                            <h1 class="mb-5" style="font-size: 20px;">Konfigurujesz kolumnę B</h1>
-                        </div>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Nazwa leku</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <input type="text" name="medicineName">
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Pory zażywania </b>
-                            </div>
-                            <div class="col-lg-2">
-                                <input type="checkbox" name="times" value="Rano">Rano<br>
-                                <input type="checkbox" name="times" value="Poludnie"> Południe<br>
-                                <input type="checkbox" name="times" value="Wieczorem"> Wieczorem<br>
-                            </div>
-                            <div class="text-center col-lg-4">
-                                Domyślne pory zażywania leków to 8:00 (rano), 12:00 (południe) oraz 18:00 (wieczór). Jeśli
-                                chcesz je zmienić lub dodać inne pory, przejdź do zakładki Pory zażywania.
-                                <a href="" class="btn btn-secondary py-1 px-1">Przejdź do Pory zażywania</a>
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Dni zażywania</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <select id="days" multiple name="days">
-                                    <option value="codziennie">Codziennie</option>
-                                    <option value="poniedzialek">Poniedziałek</option>
-                                    <option value="wtorek">Wtorek</option>
-                                    <option value="sroda">Środa</option>
-                                    <option value="czwartek">Czwartek</option>
-                                    <option value="piatek">Piątek</option>
-                                    <option value="sobota">Sobota</option>
-                                    <option value="niedziela">Niedziela</option>
-                                </select>
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Alarm dźwiękowy</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <select name="sound">
-                                    <option value="">---</option>
-                                    <option value="dzwiek">Tak</option>
-                                    <option value="bezdzwiek">Nie</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-2">
-                                <button type="submit" class="btn btn-primary py-1 px-1">Zapisz konfigurację</button>
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Alarm świetlny</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <select name="light">
-                                    <option value="">---</option>
-                                    <option value="swiatlo">Tak</option>
-                                    <option value="bezswiatla">Nie</option>
-                                </select>
-                            </div>
-                        </div><br>
-                    </form>
+            </div>  
+            {% endfor %}      
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="modalUsun{{ organizer.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div class="container text-end mb-2">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="container text-center mb-4">
+                    <h5 class="modal-title" id="exampleModalLabel">Czy na pewno chcesz usunąć organizer "{{ organizer.name }}"?</h5>
+                  </div>
+                  <div class="container text-center">
+                    <!-- akcja na tak -->
+                    <form method="post" action="{% url "boxes:box_config" %}">
+                      {% csrf_token %}
+                      <input type="hidden" value="{{ organizer.id }}" name="delete">
+                      <button type="submit" class="btn btn-secondary col-sm-3 me-4" href="{% url "boxes:box_config" %}"">Tak</button>
+                      <button type="button" class="btn btn-primary col-sm-3 ms-4" data-bs-dismiss="modal">Nie</button>
+                  </form>
+                  </div>
                 </div>
+              </div>
             </div>
-            <div id="o{{ organizer.id }}c" class="tabcontent">
-                <div class="container-xxl py-5">
-                    <form id="form1a" method="post" action="{% url "boxes:box_config" %}{{ organizer.id }}/c">
-                        {% csrf_token %}
-                        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                            <h1 class="mb-5" style="font-size: 20px;">Konfigurujesz kolumnę C</h1>
-                        </div>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Nazwa leku</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <input type="text" name="medicineName">
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Pory zażywania </b>
-                            </div>
-                            <div class="col-lg-2">
-                                <input type="checkbox" name="times" value="Rano">Rano<br>
-                                <input type="checkbox" name="times" value="Poludnie"> Południe<br>
-                                <input type="checkbox" name="times" value="Wieczorem"> Wieczorem<br>
-                            </div>
-                            <div class="text-center col-lg-4">
-                                Domyślne pory zażywania leków to 8:00 (rano), 12:00 (południe) oraz 18:00 (wieczór). Jeśli
-                                chcesz je zmienić lub dodać inne pory, przejdź do zakładki Pory zażywania.
-                                <a href="" class="btn btn-secondary py-1 px-1">Przejdź do Pory zażywania</a>
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Dni zażywania</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <select id="days" multiple name="days">
-                                    <option value="codziennie">Codziennie</option>
-                                    <option value="poniedzialek">Poniedziałek</option>
-                                    <option value="wtorek">Wtorek</option>
-                                    <option value="sroda">Środa</option>
-                                    <option value="czwartek">Czwartek</option>
-                                    <option value="piatek">Piątek</option>
-                                    <option value="sobota">Sobota</option>
-                                    <option value="niedziela">Niedziela</option>
-                                </select>
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Alarm dźwiękowy</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <select name="sound">
-                                    <option value="">---</option>
-                                    <option value="dzwiek">Tak</option>
-                                    <option value="bezdzwiek">Nie</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-2">
-                                <button type="submit" class="btn btn-primary py-1 px-1">Zapisz konfigurację</button>
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Alarm świetlny</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <select name="light">
-                                    <option value="">---</option>
-                                    <option value="swiatlo">Tak</option>
-                                    <option value="bezswiatla">Nie</option>
-                                </select>
-                            </div>
-                        </div><br>
-                    </form>
-                </div>
-            </div>
-            <div id="o{{ organizer.id }}d" class="tabcontent">
-                <div class="container-xxl py-5">
-                    <form id="form1a" method="post" action="{% url "boxes:box_config" %}{{ organizer.id }}/d">
-                        {% csrf_token %}
-                        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                            <h1 class="mb-5" style="font-size: 20px;">Konfigurujesz kolumnę D</h1>
-                        </div>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Nazwa leku</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <input type="text" name="medicineName">
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Pory zażywania </b>
-                            </div>
-                            <div class="col-lg-2">
-                                <input type="checkbox" name="times" value="Rano">Rano<br>
-                                <input type="checkbox" name="times" value="Poludnie"> Południe<br>
-                                <input type="checkbox" name="times" value="Wieczorem"> Wieczorem<br>
-                            </div>
-                            <div class="text-center col-lg-4">
-                                Domyślne pory zażywania leków to 8:00 (rano), 12:00 (południe) oraz 18:00 (wieczór). Jeśli
-                                chcesz je zmienić lub dodać inne pory, przejdź do zakładki Pory zażywania.
-                                <a href="" class="btn btn-secondary py-1 px-1">Przejdź do Pory zażywania</a>
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Dni zażywania</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <select id="days" multiple name="days">
-                                    <option value="codziennie">Codziennie</option>
-                                    <option value="poniedzialek">Poniedziałek</option>
-                                    <option value="wtorek">Wtorek</option>
-                                    <option value="sroda">Środa</option>
-                                    <option value="czwartek">Czwartek</option>
-                                    <option value="piatek">Piątek</option>
-                                    <option value="sobota">Sobota</option>
-                                    <option value="niedziela">Niedziela</option>
-                                </select>
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Alarm dźwiękowy</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <select name="sound">
-                                    <option value="">---</option>
-                                    <option value="dzwiek">Tak</option>
-                                    <option value="bezdzwiek">Nie</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-2">
-                                <button type="submit" class="btn btn-primary py-1 px-1">Zapisz konfigurację</button>
-                            </div>
-                        </div><br>
-                        <div class="row g-4">
-                            <div class="col-lg-2">
-        
-                            </div>
-                            <div class="col-lg-3">
-                                <b>Alarm świetlny</b>
-                            </div>
-                            <div class="col-lg-3">
-                                <select name="light">
-                                    <option value="">---</option>
-                                    <option value="swiatlo">Tak</option>
-                                    <option value="bezswiatla">Nie</option>
-                                </select>
-                            </div>
-                        </div><br>
-                    </form>
+          </div>
+        {% empty %}
+        <div class="container-xxl px-5">
+        <div class="row justify-content-center">
+        <div class="col-lg-6 col-sm-6 wow fadeInUp text-center" data-wow-delay="0.1s">
+            <h4 class="mb-4">Nie dodano jeszcze żadnego ogranizera</h4>
+            <div class="service-item rounded pt-3">
+                <div class="p-4">
+                    <i class="fa fa-3x fa-user-plus text-primary mb-4"></i>
+                        <a class="btn btn-link block" href="{% url "boxes:add_organizer" %}">Dodaj nowy organizer</a>
+                    <h5></h5>
                 </div>
             </div>
         </div>
-        {% endif %}
+        </div>
+        </div>
         {% endfor %}
     </div>
     
