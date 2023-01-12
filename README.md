@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/nekeal/iot_project_backend/actions/workflows/backend.yml/badge.svg)](https://github.com/nekeal/iot_project_backend/actions)
 
-Grupa A - projekt na przedmiot IoT semestr zimowy 2022/23
+IoT University Project - winter semester 2022/2023
 
 # Prerequisites
 
